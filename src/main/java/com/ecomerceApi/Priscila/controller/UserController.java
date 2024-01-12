@@ -11,21 +11,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping ("/user")
 public class UserController {
     UserService userService;
+
     public UserController (UserService userService){
         this.userService = userService;
     }
-   @PostMapping (value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = {"application/json", "text/xml"})
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest){
-        try {
-            UserRegistrationResponse respnse = userService.registerUser(registrationRequest); // TODO create a registerUser method in service
-            return ResponseEntity.ok(respnse);
-        } catch (UserExistsExecption e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
-        }
-    }
+
+   @PostMapping (value = "/register")
+    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequest request){
+       UserRegistrationResponse response = userService.registerUser(request);
+       return ResponseEntity.ok(response);
+   }
 }

@@ -22,15 +22,16 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     public User getUserByEmail(String email) throws UserNotFoundException {
-        Optional<User> optionalUser = userRepository.getUserByEmail(email);// optional annotation is explicitly handling the case where User might not be found
+        Optional<User> optionalUser = userRepository.findByEmail(email);// optional annotation is explicitly handling the case where User might not be found
         if (optionalUser.isPresent())
             return optionalUser.get();
         else {
             throw new UserNotFoundException("Email not found.");
         }
     }
+
     public boolean isEmailValid(String email) {
-        Optional<User> optionalUser = userRepository.getUserByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         return optionalUser.isPresent();
     }
 
@@ -40,14 +41,17 @@ public class UserService implements UserDetailsService {
         }
 
         User user = new User();
-        user.setName(request.getName());
+        user.setUserName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setRole(request.getRole());
         userRepository.save(user);
+        return null;
     }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null; // not sure about this null return.
     }
+
 }
