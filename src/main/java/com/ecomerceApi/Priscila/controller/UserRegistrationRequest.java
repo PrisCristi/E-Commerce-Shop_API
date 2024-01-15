@@ -16,7 +16,7 @@ public class UserRegistrationRequest {
     @NonNull
     private String password;
     @NonNull
-    private String role;
+    private Role role;
 
     @NonNull
     public String getName() {
@@ -50,7 +50,7 @@ public class UserRegistrationRequest {
         return role;
     }
 
-    public void setRole(@NonNull String role) {
+    public void setRole(@NonNull Role role) {
         this.role = role;
     }
 }
