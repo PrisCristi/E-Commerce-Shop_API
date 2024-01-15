@@ -59,28 +59,5 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    @RestController
-    @RequestMapping("/ap1/v1/auth")
-    @RequiredArgsConstructor
-    public static class AuthenticationController {
-        private final AuthenticationService service;
-
-        public AuthenticationController(AuthenticationService service) {
-            this.service = service;
-        }
-
-        @PostMapping("/register")
-        public ResponseEntity<AuthenticationResponse> register(
-                @RequestBody RegisterRequest request
-        ){
-            return ResponseEntity.ok(service.register (request));
-        }
-    @PostMapping("/authenticate")
-        public ResponseEntity<AuthenticationResponse> register(
-                @RequestBody AuthenticationRequest request
-    ) {
-
-    }
-    }
 }
 

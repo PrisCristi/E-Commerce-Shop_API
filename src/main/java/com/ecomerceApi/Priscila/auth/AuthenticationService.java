@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Builder
-public class AuthenticationService{
+public class AuthenticationService {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
@@ -47,11 +47,11 @@ public class AuthenticationService{
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getPassword()
-
+                        request.getPassword(
 
                         )
-        );
+                );
+        var user = repository.findByEmail(request.getEmail());
         return null;
     }
 }
