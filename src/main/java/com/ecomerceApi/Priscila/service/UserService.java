@@ -5,14 +5,17 @@ import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 

@@ -1,5 +1,6 @@
 package com.ecomerceApi.Priscila.model;
 
+import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.Set;
 import static java.util.Arrays.stream;
 import static org.hibernate.Hibernate.map;
 
+@Getter
 public enum Role {
     USER(Collections.emptySet()),
     CUSTOMER(Set.of(
@@ -37,10 +39,6 @@ public enum Role {
 
     Role(Set<Permission> permissions) {
         this.permissions = permissions;
-    }
-
-    public Set<Permission> getPermissions() {
-        return permissions;
     }
 
     public List<SimpleGrantedAuthority> getAuthorities() {

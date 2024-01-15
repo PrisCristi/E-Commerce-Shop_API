@@ -1,23 +1,20 @@
 package com.ecomerceApi.Priscila.auth;
 
-import lombok.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ecomerceApi.Priscila.model.Role;
 
 public class RegisterRequest {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private Role role;
 
-    public RegisterRequest(String firstName, String lastName, String email, String password) {
+    public RegisterRequest(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public RegisterRequest() {
@@ -55,5 +52,12 @@ public class RegisterRequest {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
 
