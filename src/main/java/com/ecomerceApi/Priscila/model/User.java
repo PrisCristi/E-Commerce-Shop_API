@@ -18,7 +18,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String firstName;
+    private String name;
     @NotNull
     private String email;
     @NotNull
@@ -39,12 +39,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -58,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthorities();
     }
 
     @Override
@@ -105,7 +105,7 @@ public class User implements UserDetails {
 
     public User(Long id, String name, String email, String password, Role role) {
         this.id = id;
-        this.firstName = name;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
