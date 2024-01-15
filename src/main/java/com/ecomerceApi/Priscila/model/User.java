@@ -1,8 +1,6 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,7 +18,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String userName;
+    private String firstName;
     @NotNull
     private String email;
     @NotNull
@@ -41,12 +39,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -107,7 +105,7 @@ public class User implements UserDetails {
 
     public User(Long id, String name, String email, String password, Role role) {
         this.id = id;
-        this.userName = name;
+        this.firstName = name;
         this.email = email;
         this.password = password;
         this.role = role;

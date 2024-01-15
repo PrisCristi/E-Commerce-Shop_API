@@ -5,7 +5,6 @@ import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -37,7 +36,7 @@ public class UserService {
         }
 
         User user = new User();
-        user.setUserName(request.getName());
+        user.setFirstName(request.getName());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setRole(request.getRole());
