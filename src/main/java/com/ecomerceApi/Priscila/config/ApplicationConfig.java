@@ -15,24 +15,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.function.Supplier;
+
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
+
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationConfig(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Bean
-    @Autowired
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return null;
+                return repository.findByEmail(username)
+                        .orElseThrow(new Supplier<UsernameNotFoundException>() {
+                            @Override
+                            public UsernameNotFoundException get() {
+                                return new UsernameNotFoundException("Email not found");
+                            }
+                        });
             }
         };
     }
@@ -47,12 +50,12 @@ public class ApplicationConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
 }

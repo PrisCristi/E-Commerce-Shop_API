@@ -1,2 +1,5 @@
-package com.ecomerceApi.Priscila.model;public class Token {
+package com.ecomerceApi.Priscila.model;
+
+public class Token {
+
 }
