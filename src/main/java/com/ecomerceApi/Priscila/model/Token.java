@@ -26,8 +26,10 @@ public class Token {
 
     public boolean expired;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)   // each user can have many token
     @JoinColumn(name = "user_id")
     public User user;
+
+
 
 }

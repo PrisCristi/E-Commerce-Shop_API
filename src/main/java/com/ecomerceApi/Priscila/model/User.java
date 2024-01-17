@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "_user")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "_user")
+    @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
     @Override
