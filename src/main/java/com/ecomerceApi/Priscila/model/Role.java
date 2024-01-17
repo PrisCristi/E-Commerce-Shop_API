@@ -1,31 +1,52 @@
 package com.ecomerceApi.Priscila.model;
 
-import jakarta.persistence.*;
-
 import lombok.Getter;
-import lombok.Setter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Entity
-@Table(name = "roles")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-    public Long getId() {
-        return id;
+import static java.util.Arrays.stream;
+import static org.hibernate.Hibernate.map;
+
+@Getter
+public enum Role {
+    USER(Collections.emptySet()),
+    CUSTOMER(Set.of(
+
+            Permission.CUSTOMER_READ,
+            Permission.CUSTOMER_UPDATE,
+            Permission.CUSTOMER_DELETE,
+            Permission.CUSTOMER_CREATE
+    )),
+
+    ADMIN(Set.of(
+            Permission.ADMIN_CREATE,
+            Permission.ADMIN_UPDATE,
+            Permission.ADMIN_READ,
+            Permission.ADMIN_DELETE,
+
+            Permission.CUSTOMER_CREATE,
+            Permission.CUSTOMER_UPDATE,
+            Permission.CUSTOMER_READ,
+            Permission.CUSTOMER_DELETE
+
+    ));
+
+
+    private final Set<Permission> permissions; // to no have duplications Set is better
+
+    Role(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        var authorities = getPermissions()
+                .stream()
+                .map(permissions -> new SimpleGrantedAuthority(permissions.name()))
+                .toList();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return authorities;
     }
 }
