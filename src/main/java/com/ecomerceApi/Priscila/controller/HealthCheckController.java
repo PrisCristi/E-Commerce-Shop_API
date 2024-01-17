@@ -21,7 +21,7 @@ public class HealthCheckController {
 
     @GetMapping
     public ResponseEntity<Void> check(){
-        userRepository.findAll(); // retorna uma lista de users
+        userRepository.findAll(); // return a list with all users
         return ResponseEntity.ok().build();
     }
 
