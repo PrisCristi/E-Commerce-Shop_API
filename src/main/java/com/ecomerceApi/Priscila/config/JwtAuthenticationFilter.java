@@ -22,7 +22,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Declarin
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
@@ -38,9 +37,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Declarin
         }
         jwt = authHeader.substring(7);  // extract the token from the authHeader
         userEmail = jwtService.extractUserName(jwt); // todo extract the userEmail from JWT token; // need a class that can handle it.
-        if (userEmail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            if(jwtService.isTokenValid(jwt, userDetails)){
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+            if (jwtService.isTokenValid(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
