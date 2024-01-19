@@ -31,10 +31,10 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return geneteToken(new HashMap<>(), userDetails);
+        return generateToken(new HashMap<>(), userDetails);
     }
 
-    public String geneteToken(
+    public String generateToken(
             Map<String, Objects> extraClaims,
             UserDetails userDetails
     ) {
