@@ -25,17 +25,24 @@ import static com.ecomerceApi.Priscila.model.Role.CUSTOMER;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfiguration {
-
     @Autowired
-    JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    UserRepository repository;
-
+    JwtAuthEntryPoint authEntryPoint;
     @Autowired
     EUserDetailsService userDetailsService;
+
+    @Bean
+public SecurityFilterChain filterChain(HttpSecurity http){
+    http
+            .csrf().disable()
+            .exceptionHandling()
+            .authenticationEntryPoint()
+}
+
+
+
+
+/*
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

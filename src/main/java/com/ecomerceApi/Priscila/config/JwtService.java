@@ -15,9 +15,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-@Service
+/*@Service
 public class JwtService {
-    private static final String SECRET_KEY = "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcwNTY1OTczMywiaWF0IjoxNzA1NjU5NzMzfQ.hbPR3cIoOm-l_7TLjMumkVw1ctJkPZrvV9ToPkSmlz9r1g3ncWYy1mgZfzk5LVRCu9bmQhnOyO4VyBs4la1tqg";
+    private static final String SECRET_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MDU2NjI4NTMsImV4cCI6MTczNzE5ODg1MywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0rqDQBJYuTArvpdf3brTsMLmsVqi2RjWQQobfBdiui9tZKe8NZf6ZzRdZFNkmsd9NHNsoWc4x1UVMPPSS7RLg";
     // alg: HS512
 
     public String extractUserName(String token) {
@@ -78,3 +78,5 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
+
+ */
