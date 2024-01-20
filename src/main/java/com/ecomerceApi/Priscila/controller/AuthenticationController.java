@@ -1,5 +1,7 @@
 package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.model.User;
+import com.ecomerceApi.Priscila.repository.UserRepository;
 import com.ecomerceApi.Priscila.requestModels.AuthenticationRequest;
 import com.ecomerceApi.Priscila.requestModels.AuthenticationResponse;
 import com.ecomerceApi.Priscila.requestModels.LoginRequest;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/ap1/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final AuthenticationService service;
-    private final AuthenticationManager authenticationManager;
-    private final LoginRequest loginRequest;
-    private final JwtService jwtService;
+    AuthenticationService service;
+    AuthenticationManager authenticationManager;
+    LoginRequest loginRequest;
+    JwtService jwtService;
+   UserRepository userRepository;
 
     @PostMapping("login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
                         loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = JwtService.generateToken(authentication);
+        String token = JwtService.generateToken((UserDetails) authentication);
         return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
     }
 
@@ -51,4 +55,5 @@ public class AuthenticationController {
     ) {
         return ResponseEntity.ok(service.authenticate(request));
     }
+
 }
