@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.controller;
+package com.ecomerceApi.Priscila.requestModels;
 
 import com.ecomerceApi.Priscila.model.Role;
 import lombok.*;

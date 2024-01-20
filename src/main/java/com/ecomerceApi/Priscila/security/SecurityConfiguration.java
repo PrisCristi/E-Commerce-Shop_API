@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.config;
+package com.ecomerceApi.Priscila.security;
 
 import com.ecomerceApi.Priscila.service.EUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.service;
 
-import com.ecomerceApi.Priscila.controller.UserRegistrationRequest;
+import com.ecomerceApi.Priscila.requestModels.UserRegistrationRequest;
 import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
