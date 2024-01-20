@@ -1,5 +1,9 @@
-package com.ecomerceApi.Priscila.auth;
+package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.requestModels.AuthenticationRequest;
+import com.ecomerceApi.Priscila.requestModels.AuthenticationResponse;
+import com.ecomerceApi.Priscila.service.AuthenticationService;
+import com.ecomerceApi.Priscila.requestModels.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService service;
+
+    @PostMapping("login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody)
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(

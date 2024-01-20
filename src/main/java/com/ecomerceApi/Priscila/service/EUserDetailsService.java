@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila;
+package com.ecomerceApi.Priscila.service;
 
 import com.ecomerceApi.Priscila.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

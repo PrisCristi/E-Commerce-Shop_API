@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.config;
 
-import com.ecomerceApi.Priscila.EUserDetailsService;
+import com.ecomerceApi.Priscila.service.EUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

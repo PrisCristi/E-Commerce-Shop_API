@@ -1,6 +1,8 @@
-package com.ecomerceApi.Priscila.auth;
+package com.ecomerceApi.Priscila.service;
 
-import com.ecomerceApi.Priscila.config.JwtService;
+import com.ecomerceApi.Priscila.requestModels.AuthenticationRequest;
+import com.ecomerceApi.Priscila.requestModels.AuthenticationResponse;
+import com.ecomerceApi.Priscila.requestModels.RegisterRequest;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

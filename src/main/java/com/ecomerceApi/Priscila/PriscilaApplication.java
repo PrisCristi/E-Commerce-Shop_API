@@ -1,12 +1,11 @@
 package com.ecomerceApi.Priscila;
 
-import com.ecomerceApi.Priscila.auth.AuthenticationService;
-import com.ecomerceApi.Priscila.auth.RegisterRequest;
+import com.ecomerceApi.Priscila.service.AuthenticationService;
+import com.ecomerceApi.Priscila.requestModels.RegisterRequest;
 import com.ecomerceApi.Priscila.model.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication

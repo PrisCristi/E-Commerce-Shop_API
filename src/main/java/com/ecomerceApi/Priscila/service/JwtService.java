@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.config;
+package com.ecomerceApi.Priscila.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
