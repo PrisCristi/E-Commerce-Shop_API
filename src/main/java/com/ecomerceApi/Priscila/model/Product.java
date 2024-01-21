@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
         @Id
         @Column(name = "product_id")
         @GeneratedValue(strategy = GenerationType.AUTO)
-        private int productId;
+        private Long productId;
 
         @Column(name = "product_name")
         private String productName;
@@ -32,9 +32,6 @@ import lombok.NoArgsConstructor;
         @Column(name = "is_stored")
         private boolean stored;
 
-        @ManyToOne
-        @JoinColumn(name = "seller_id")
-        private User seller;
 
 
 }

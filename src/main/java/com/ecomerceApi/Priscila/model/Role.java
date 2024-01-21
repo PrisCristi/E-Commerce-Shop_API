@@ -32,6 +32,7 @@ public enum Role {
     ));
 
 
+
     private final Set<Permission> permissions; // Created a set to not have duplications
 
     public List<SimpleGrantedAuthority> getAuthorities() {
