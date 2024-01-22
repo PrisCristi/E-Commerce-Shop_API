@@ -38,17 +38,17 @@ public class AuthenticationController {
                         loginRequest.getUsername(),
                         loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = JwtService.generateToken((UserDetails) authentication);
+        String token = jwtService.generateToken((UserDetails) authentication);
         return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
     }
-
+/*
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
         return ResponseEntity.ok(service.register(request));
     }
-
+*/
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request
