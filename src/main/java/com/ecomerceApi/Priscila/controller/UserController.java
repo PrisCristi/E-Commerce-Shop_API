@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/register")  // do I need this method here? The register method in authenticationContoller isn´t enough?
+    @PostMapping(value = "/register")  // /user/register  do I need this method here? The register method in authenticationContoller isn´t enough?
     public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsExecption {
         userService.register(request);
         return ResponseEntity.ok().build();

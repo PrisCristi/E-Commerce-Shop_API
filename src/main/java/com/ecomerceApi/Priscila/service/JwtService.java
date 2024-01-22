@@ -40,26 +40,15 @@ public class JwtService { // generate tokens
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
-        return buildToken(extraClaims, userDetails, jwtExpiration);
-    }
-
-
-    public String buildToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails,
-            long expiration
-    ) {
         return Jwts
                 .builder()
                 .setSubject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(key(), SignatureAlgorithm.HS256) // create a key method.
+                .expiration(new Date(System.currentTimeMillis() + 900_000))
+                .signWith(SignatureAlgorithm.HS256,secretKey) // create a key method.
                 .compact();
     }
-    private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
-    }
+
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
@@ -77,7 +66,7 @@ public class JwtService { // generate tokens
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parser()
-                .setSigningKey(key())
+                .setSigningKey(secretKey)
                 .build()
                 .parseEncryptedClaims(token)
                 .getPayload();
