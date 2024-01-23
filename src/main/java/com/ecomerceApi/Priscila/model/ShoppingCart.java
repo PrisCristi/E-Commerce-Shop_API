@@ -7,8 +7,8 @@ import org.springframework.lang.NonNull;
 // this table was created to store the quantity of each product was ordered to dialog with Inventory
 @Data
 @Entity
-@Table(name = "order_quantity")
-public class OrderQuantities {
+@Table(name = "cart")
+public class ShoppingCart {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (name = "id")

@@ -22,7 +22,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order") // each list is associated to one order.
-    private List<OrderQuantities> quantities = new ArrayList<>(); // created a new table to store the quantity of products per order
+    private List<ShoppingCart> quantities = new ArrayList<>(); // created a new table to store the quantity of products per order
 
 
 }
