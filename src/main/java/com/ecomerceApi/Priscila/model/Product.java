@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-    @Data
+@Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Entity
@@ -18,19 +19,26 @@ import lombok.NoArgsConstructor;
         private Long productId;
 
         @Column(name = "product_name")
+        @NonNull
         private String productName;
 
         @Column
         private String description;
 
         @Column
+        @NonNull
         private Double price;
 
+
+
+       /*
         @Column(name = "stock_quantity")
         private int stockQuantity;
 
         @Column(name = "is_stored")
         private boolean stored;
+
+        */
 
 
 
