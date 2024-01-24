@@ -17,40 +17,47 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "28C79DA9912E94FFBAA625DE6C122";
+    private static final String SECRET_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MDU2NjI4NTMsImV4cCI6MTczNzE5ODg1MywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0rqDQBJYuTArvpdf3brTsMLmsVqi2RjWQQobfBdiui9tZKe8NZf6ZzRdZFNkmsd9NHNsoWc4x1UVMPPSS7RLg";
+    // alg: HS512
 
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
 
     }
-    public <T> T extractClaim (String token, Function<Claims, T> claimsResolver){
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    public String generateToken(UserDetails userDetails){
-        return geneteToken(new HashMap<>(), userDetails);
+
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
     }
-    public String geneteToken (
+
+    public String generateToken(
             Map<String, Objects> extraClaims,
             UserDetails userDetails
-    ){
+    ) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-    public boolean isTokenValid(String token, UserDetails userDetails){
-        final String username= extractUserName(token);
-        return (username.equals(userDetails.getUsername()))&& isTokeneExpired(token);
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUserName(token);
+        return (username.equals(userDetails.getUsername())) && isTokeneExpired(token);
     }
-    private boolean isTokeneExpired (String token){
+
+    private boolean isTokeneExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
-    private Date extractExpiration(String token){
+
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
 
     }
