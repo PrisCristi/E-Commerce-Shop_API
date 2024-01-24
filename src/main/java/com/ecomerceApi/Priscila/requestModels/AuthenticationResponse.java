@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import org.springdoc.core.configuration.oauth2.SpringDocOAuth2Token;
 
-@Value //
+@Value
 @Builder
 public class AuthenticationResponse implements SpringDocOAuth2Token {
 

@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 
 @Data
 public class UserRegistrationRequest {
+
     @NonNull
     private String name;
     @NonNull

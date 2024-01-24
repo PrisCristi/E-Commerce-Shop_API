@@ -35,7 +35,7 @@ public enum Role {
 
     private final Set<Permission> permissions; // Created a set to not have duplications
 
-    public List<SimpleGrantedAuthority> getAuthorities() {
+    public List<SimpleGrantedAuthority> getAuthorities() {  // Generate list of user with permission
         var authorities = getPermissions()
                 .stream()
                 .map(permissions -> new SimpleGrantedAuthority(permissions.getPermission()))

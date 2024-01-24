@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Declaring our filter class
 
     private JwtService jwtService;
@@ -34,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {  // Declarin
         System.out.println("auth: " + authHeader);
 
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) { // if it is not null or starts with "bearer I want to pass
+        if (authHeader != null && authHeader.startsWith("Bearer ")) { // if it is not null and starts with "bearer I want to pass
             String jwt = authHeader.substring(7);
             UserDetails userDetails = jwtService.extractUser(jwt);
             if (SecurityContextHolder.getContext().getAuthentication() == null){

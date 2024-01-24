@@ -10,8 +10,10 @@ import java.util.Collection;
 @Builder
 @Value
 public class JwtUserDetails implements UserDetails {
+
     Collection<? extends GrantedAuthority> authorities;
     String username;
+
     @Override
     public String getPassword(){
         return null;

@@ -1,7 +1,12 @@
 package com.ecomerceApi.Priscila.security;
 
 import com.ecomerceApi.Priscila.service.EUserDetailsService;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,55 +21,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.crypto.SecretKey;
+
 import static com.ecomerceApi.Priscila.model.Permission.*;
 import static com.ecomerceApi.Priscila.model.Role.CUSTOMER;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    @Autowired
-    JwtAuthenticationFilter jwtAuthenticationFilter;
-    @Autowired
-    EUserDetailsService userDetailsService;
 
+    @Value("${application.security.jwt.secret-key}")
+    private String secretKey;
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+    public SecretKey jwtKey() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 
     @Bean
-   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-       return authConfig.getAuthenticationManager();
-   }
+    public JwtParser jwtParser() {
+        return Jwts.parser().verifyWith(jwtKey()).build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable) // protect against fake solicitations
-                .securityMatchers((matchers) -> matchers // define security rules
-                        .requestMatchers("/ap1/v1/**") // specifies requests patterns
-                )
-                .authorizeHttpRequests((authorize) -> authorize // configures request authorization
-                        .requestMatchers("/ap1/v1/customer **").hasRole(CUSTOMER.name())
-                        .requestMatchers(HttpMethod.GET, "/ap1/v1/customer **").hasAuthority(CUSTOMER_READ.name())
-                        .requestMatchers(HttpMethod.POST, "/ap1/v1/customer **").hasAuthority(CUSTOMER_CREATE.name())
-                        .requestMatchers(HttpMethod.PUT, "/ap1/v1/customer **").hasAuthority(CUSTOMER_UPDATE.name())
-                        .requestMatchers(HttpMethod.DELETE, "/ap1/v1/customer **").hasAuthority(CUSTOMER_DELETE.name())
-                        .anyRequest().hasRole("ADMIN")
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Manages user sessions
-                .authenticationProvider(authenticationProvider()) // Manages user authentication
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-
 }
