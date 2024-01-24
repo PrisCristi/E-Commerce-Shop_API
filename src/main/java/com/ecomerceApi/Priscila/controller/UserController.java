@@ -14,18 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping ("/user")
+@RequestMapping("/user")
 public class UserController {
     UserService userService;
-    public UserController (UserService userService){
+
+    public UserController(UserService userService) {
         this.userService = userService;
     }
-   @PostMapping (value = "/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest){
+
+    @PostMapping(value = "/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
         try {
             UserRegistrationResponse respnse = userService.registerUser(registrationRequest); // TODO create a registerUser method in service
             return ResponseEntity.ok(respnse);
-        } catch (UserExistsExecption e){
+        } catch (UserExistsExecption e) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
