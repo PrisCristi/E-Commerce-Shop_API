@@ -8,6 +8,8 @@ import com.ecomerceApi.Priscila.requestModels.LoginRequest;
 import com.ecomerceApi.Priscila.service.AuthenticationService;
 import com.ecomerceApi.Priscila.requestModels.RegisterRequest;
 import com.ecomerceApi.Priscila.service.JwtService;
+import com.ecomerceApi.Priscila.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,32 +23,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/ap1/v1/auth")
-@RequiredArgsConstructor
-public class AuthenticationController {
-    AuthenticationService service;
-    AuthenticationManager authenticationManager;
-    LoginRequest loginRequest;
-    JwtService jwtService;
-   UserRepository userRepository;
+import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
 
+@RestController
+@RequestMapping("")
+@AllArgsConstructor
+public class AuthenticationController {
+
+    private UserService userService;
     @PostMapping("login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtService.generateToken((UserDetails) authentication);
-        return new ResponseEntity<>(new AuthenticationResponse(token), HttpStatus.OK);
+    public ResponseEntity<AuthenticationResponse>login(@RequestBody LoginRequest loginRequest){
+        return new ResponseEntity<>(AuthenticationResponse.builder()
+                .token(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))  // token as String?
+                .build(),
+                HttpStatus.OK);
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return ResponseEntity.ok(service.authenticate(request));
+
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
+        return new ResponseEntity<>( AuthenticationResponse
+                .builder()
+                .token(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))
+                .build()
+                .HttpStatus.OK);
     }
 
 }

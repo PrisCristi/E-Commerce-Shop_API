@@ -3,7 +3,7 @@ package com.ecomerceApi.Priscila.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ap1/v1/admin")
+@RequestMapping("/ap1/v1/admin")   // I need to create a update end point here
 public class AdminController {
 
     @GetMapping

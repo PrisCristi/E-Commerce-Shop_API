@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
-// this table was created to store the quantity of each product was ordered to dialog with Inventory
+// this table was created to store the quantity of each product
 @Data
 @Entity
 @Table(name = "cart")
