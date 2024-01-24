@@ -20,7 +20,7 @@ public class UserController {
     public UserController (UserService userService){
         this.userService = userService;
     }
-   @PostMapping (value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = {"application/json", "text/xml"})
+   @PostMapping (value = "/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest){
         try {
             UserRegistrationResponse respnse = userService.registerUser(registrationRequest); // TODO create a registerUser method in service
