@@ -25,6 +25,7 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest registrationRequest) {
+
         try {
             UserRegistrationResponse respnse = userService.registerUser(registrationRequest); // TODO create a registerUser method in service
             return ResponseEntity.ok(respnse);
