@@ -5,32 +5,34 @@ import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class UserService {
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
+@AllArgsConstructor
+public class UserService implements UserDetailsService {
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-    }
+    private PasswordEncoder passwordEncoder;
+    private UserRepository userRepository;
+    private JwtService jwtService;
 
-    public User getUserByEmail(String email) throws UserNotFoundException {
-        Optional<User> optionalUser = userRepository.findByEmail(email);// optional annotation is explicitly handling the case where User might not be found
-        if (optionalUser.isPresent())
-            return optionalUser.get();
-        else {
-            throw new UserNotFoundException("Email not found.");
-        }
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
     }
 
     public boolean isEmailRegistered(String email) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        return optionalUser.isPresent();
+        return userRepository.findByEmail(email).isPresent();
     }
 
     public void register(UserRegistrationRequest request) throws UserExistsExecption {
@@ -44,6 +46,22 @@ public class UserService {
         user.setPassword(request.getPassword());
         user.setRole(request.getRole());
         userRepository.save(user);
+
     }
+
+    public String login(String userName, String password) {
+        return userRepository.findByEmail(userName)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword()))
+                .map(user -> jwtService.generateToken(
+                                 // intellij asked to exclude user  with this
+                                (UserDetails) Map.of("auth", user.getAuthorities().stream() //  casting from intellij
+                                       .map(GrantedAuthority::getAuthority)
+                                       .collect(Collectors.toList()))
+                        )
+                )
+                .orElseThrow();
+
+    }
+
 
 }

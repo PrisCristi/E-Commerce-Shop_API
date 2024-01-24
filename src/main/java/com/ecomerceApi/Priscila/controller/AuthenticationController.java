@@ -28,24 +28,16 @@ import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
 @RestController
 @RequestMapping("")
 @AllArgsConstructor
-public class AuthenticationController {
+public class AuthenticationController {  // authenticate Login access.
 
     private UserService userService;
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse>login(@RequestBody LoginRequest loginRequest){
         return new ResponseEntity<>(AuthenticationResponse.builder()
-                .token(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))  // token as String?
+                .token(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))  // create meth in UserService
                 .build(),
                 HttpStatus.OK);
     }
 
-
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        return new ResponseEntity<>( AuthenticationResponse
-                .builder()
-                .token(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))
-                .build()
-                .HttpStatus.OK);
-    }
 
 }
