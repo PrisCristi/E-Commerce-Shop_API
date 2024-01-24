@@ -1,5 +1,6 @@
-package com.ecomerceApi.Priscila.dto;
+package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.model.Role;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -15,7 +16,7 @@ public class UserRegistrationRequest {
     @NonNull
     private String password;
     @NonNull
-    private String role;
+    private Role role;
 
     @NonNull
     public String getName() {
@@ -45,11 +46,11 @@ public class UserRegistrationRequest {
     }
 
     @NonNull
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(@NonNull String role) {
+    public void setRole(@NonNull Role role) {
         this.role = role;
     }
 }
