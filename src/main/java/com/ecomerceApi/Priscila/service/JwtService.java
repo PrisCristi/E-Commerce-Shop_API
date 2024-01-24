@@ -1,74 +1,71 @@
 package com.ecomerceApi.Priscila.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import com.ecomerceApi.Priscila.security.JwtUserDetails;
+import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService { // generate tokens
 
-    @Value("${application.security.jwt.secret-key}")
-    private String secretKey;
-    @Value("${application.security.jwt.expiration}")
-    private static long jwtExpiration;
+    private long jwtExpiration;
+    private SecretKey jwtKey;
+    private JwtParser jwtParser; // read tokens
 
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public JwtService(
+            @Value("${application.security.jwt.expiration}") long jwtExpiration,
+            @Qualifier("jwtKey") SecretKey jwtKey,
+            JwtParser jwtParser) { // created a constructor and passed valeus related to secrete key, expiration and parser
+        this.jwtExpiration = jwtExpiration;
+        this.jwtKey = jwtKey;
+        this.jwtParser = jwtParser;
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
+        return generateToken(userDetails, extraClaims, jwtExpiration);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
-    }
-
-    public String generateToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails
-    ) {
+    public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims, long expiration) {
         return Jwts
                 .builder()
-                .setSubject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 900_000))
-                .signWith(SignatureAlgorithm.HS256,secretKey) // create a key method.
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .claims(extraClaims)
+                .signWith(jwtKey)
                 .compact();
     }
 
-
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parser()
-                .setSigningKey(secretKey)
-                .build()
-                .parseEncryptedClaims(token)
+        return jwtParser
+                .parse(token)
+                .accept(Jws.CLAIMS)
                 .getPayload();
     }
+
+    public UserDetails extractUser(String jwt) {
+        final Claims claims = extractAllClaims(jwt);
+
+        @SuppressWarnings("unchecked")
+        List<String> authList = claims.get("auth", List.class);
+
+        return JwtUserDetails
+                .builder()
+                .username(claims.getSubject())
+                .authorities(authList
+                        .stream()
+                        .map(o -> new SimpleGrantedAuthority(String.valueOf(o)))
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
 }
