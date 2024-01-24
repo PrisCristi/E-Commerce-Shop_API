@@ -6,6 +6,7 @@ import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,12 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
     }
 
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
+
+    }
+
     public boolean isEmailRegistered(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
@@ -53,10 +60,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(userName)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> jwtService.generateToken(
-                                 // intellij asked to exclude user  with this
+                                // intellij asked to exclude user  with this
                                 (UserDetails) Map.of("auth", user.getAuthorities().stream() //  casting from intellij
-                                       .map(GrantedAuthority::getAuthority)
-                                       .collect(Collectors.toList()))
+                                        .map(GrantedAuthority::getAuthority)
+                                        .collect(Collectors.toList()))
                         )
                 )
                 .orElseThrow();
