@@ -1,23 +1,17 @@
 package com.ecomerceApi.Priscila.requestModels;
 
 import lombok.Builder;
+import lombok.Value;
+import org.springdoc.core.configuration.oauth2.SpringDocOAuth2Token;
 
+@Value //
 @Builder
-public class AuthenticationResponse {
-    private String token;
+public class AuthenticationResponse implements SpringDocOAuth2Token {
 
-    public String getToken() {
-        return token;
-    }
+    String accessToken;
+    String tokenType = "Bearer";
+    long expiresIn = 3600;
+    String refreshToken;
+    String scope;
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public AuthenticationResponse(String token) {
-        this.token = token;
-    }
-
-    public AuthenticationResponse() {
-    }
 }

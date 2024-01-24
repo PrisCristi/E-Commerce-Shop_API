@@ -5,9 +5,7 @@ import lombok.*;
 import org.springframework.lang.NonNull;
 
 // for some reason annotation @Getter is not working. So I created manually a get method
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class UserRegistrationRequest {
     @NonNull
     private String name;
