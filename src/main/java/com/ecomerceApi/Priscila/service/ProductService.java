@@ -33,7 +33,6 @@ public class ProductService {
                         String.format("Product with id %d is not found", id)));
     }
 
-
     @Transactional // This annotation ensures data integrity and consistency - rolling back (rollback when is necessáry)
     public Product updateProduct(long id, Product product) throws ProductNotFoundException {
 
@@ -41,14 +40,16 @@ public class ProductService {
         product.setProductId(productToBeUpdated.getProductId());
         return repository.save(product);
     }
-
+/*
     public boolean checkProductStock(long productId, int requestedAmount) {
         Product requestedProduct = getById(productId);
         return requestedProduct.getStock() >= requestedAmount;
     }
 
+ */
+
     @Transactional
-    public void deleteProduct(long id) {
+    public void deleteProduct(long id) throws ProductNotFoundException {
         repository.delete(getById(id));
     }
 

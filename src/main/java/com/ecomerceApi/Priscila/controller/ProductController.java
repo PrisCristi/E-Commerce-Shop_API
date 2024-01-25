@@ -34,7 +34,7 @@ public class ProductController {
     @PutMapping("/{id}") // update an existent product
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> updatedProduct(@PathVariable("id") long id,
-            @RequestBody Product product) throws ProductNotFoundException {
+                                                  @RequestBody Product product) throws ProductNotFoundException {
 
         Product updatedProduct = productService.updateProduct(id, product);
         return ResponseEntity.ok().body(updatedProduct);
@@ -47,16 +47,14 @@ public class ProductController {
         Product foundProduct = productService.getById(id);
         return ResponseEntity.ok().body(foundProduct);
     }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')") // only admin can delete data
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") long id){
+    public ResponseEntity<String> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
 
         productService.deleteProduct(id);
         String message = String.format("Product with id %d was deleted", id);
         return ResponseEntity.ok().body(message);
     }
-
-
-
 
 }
