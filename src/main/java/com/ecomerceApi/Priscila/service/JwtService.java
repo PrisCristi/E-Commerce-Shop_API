@@ -2,6 +2,7 @@ package com.ecomerceApi.Priscila.service;
 
 import com.ecomerceApi.Priscila.security.JwtUserDetails;
 import io.jsonwebtoken.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

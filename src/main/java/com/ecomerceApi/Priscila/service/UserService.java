@@ -60,15 +60,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(userName)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> jwtService.generateToken(
-                                // intellij asked to exclude user  with this
-                                (UserDetails) Map.of("auth", user.getAuthorities().stream() //  casting from intellij
+                                user,
+                                Map.of("auth", user.getAuthorities().stream()
                                         .map(GrantedAuthority::getAuthority)
                                         .collect(Collectors.toList()))
                         )
                 )
                 .orElseThrow();
-
     }
-
-
 }
