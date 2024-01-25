@@ -1,37 +1,35 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Entity
-    @Table(name = "product")
-    public class Product {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "product")
+public class Product {
 
-        @Id
-        @Column(name = "product_id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long productId;
+    @Id
+    @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long productId;
 
-        @Column(name = "product_name")
-        @NonNull
-        private String productName;
+    @Column(name = "product_name")
+    @NonNull
+    private String name;
 
-        @Column
-        private String description;
+    @Column
+    private String description;
 
-        @Column
-        @NonNull
-        private Double price;
+    @Column
+    @NonNull
+    private Double price;
 
 
 
-       /*
+
+    /*
         @Column(name = "stock_quantity")
         private int stockQuantity;
 
@@ -39,7 +37,6 @@ import lombok.NonNull;
         private boolean stored;
 
         */
-
 
 
 }
