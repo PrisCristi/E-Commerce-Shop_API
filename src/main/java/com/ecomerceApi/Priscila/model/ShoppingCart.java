@@ -14,19 +14,19 @@ public class ShoppingCart {
     @Column (name = "id")
     private Long id;
 
-    @ManyToOne // one product can be related to (appear in) various OrderQuantities
+    @ManyToOne
     @NonNull
     @JoinColumn(name = "product_id")
     private Product product; // product that is gonna be stored
 
     @Column(name = "quantity")
     @NonNull
-    private Integer orderQuantity;
+    private int quantity;
 
-    @ManyToOne // one order can be related to various OrderQuantities
+    @ManyToOne
     @NonNull
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }

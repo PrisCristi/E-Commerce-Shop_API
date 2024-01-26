@@ -1,6 +1,7 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.*;
 
 @Data
@@ -19,15 +20,16 @@ public class Product {
     @NonNull
     private String name;
 
-    @Column
+    @Column (name = "descrition")
     private String description;
 
-    @Column
+    @Column (name = "price" )
     @NonNull
     private Double price;
 
     @Column
     @NonNull
+    @Min(0)
     private int stock;
 
 

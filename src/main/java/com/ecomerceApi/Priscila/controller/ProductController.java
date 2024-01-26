@@ -40,7 +40,7 @@ public class ProductController {
         return ResponseEntity.ok().body(updatedProduct);
     }
 
-    @GetMapping("/{id}") // read products by id (Create a get all method)
+    @GetMapping("/{id}") // get  products by id
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')") // to see the products anybody
     public ResponseEntity<Product> getProduct(@PathVariable("id") long id) throws ProductNotFoundException {
 

@@ -40,18 +40,16 @@ public class ProductService {
         product.setProductId(productToBeUpdated.getProductId());
         return repository.save(product);
     }
-/*
-    public boolean checkProductStock(long productId, int requestedAmount) {
+
+    public boolean checkProductStock(long productId, int requestedTotal) throws ProductNotFoundException {
         Product requestedProduct = getById(productId);
-        return requestedProduct.getStock() >= requestedAmount;
+        return requestedProduct.getStock() >= requestedTotal;
     }
 
- */
 
     @Transactional
     public void deleteProduct(long id) throws ProductNotFoundException {
         repository.delete(getById(id));
     }
-
 
 }
