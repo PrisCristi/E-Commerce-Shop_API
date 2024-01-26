@@ -1,6 +1,7 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import org.springframework.lang.NonNull;
 // this table was created to store the quantity of each product
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "cart")
 public class ShoppingCart {
@@ -32,4 +34,6 @@ public class ShoppingCart {
     private User user;
 
 
+    public ShoppingCart(long quantity, Product product, User user) {
+    }
 }

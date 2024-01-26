@@ -5,13 +5,9 @@ import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.service.ProductService;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -44,7 +40,7 @@ public class ProductController {
     @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')") // to see the products anybody
     public ResponseEntity<Product> getProduct(@PathVariable("id") long id) throws ProductNotFoundException {
 
-        Product foundProduct = productService.getById(id);
+        Product foundProduct = productService.getProductById(id);
         return ResponseEntity.ok().body(foundProduct);
     }
 

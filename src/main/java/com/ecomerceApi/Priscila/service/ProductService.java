@@ -26,7 +26,7 @@ public class ProductService {
         return repository.save(product);
     }
 
-    public Product getById(long id) throws ProductNotFoundException {
+    public Product getProductById(long id) throws ProductNotFoundException {
 
         return repository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(
@@ -36,20 +36,20 @@ public class ProductService {
     @Transactional // This annotation ensures data integrity and consistency - rolling back (rollback when is necessáry)
     public Product updateProduct(long id, Product product) throws ProductNotFoundException {
 
-        Product productToBeUpdated = getById(id);
+        Product productToBeUpdated = getProductById(id);
         product.setProductId(productToBeUpdated.getProductId());
         return repository.save(product);
     }
 
     public boolean checkProductStock(long productId, int requestedTotal) throws ProductNotFoundException {
-        Product requestedProduct = getById(productId);
+        Product requestedProduct = getProductById(productId);
         return requestedProduct.getStock() >= requestedTotal;
     }
 
 
     @Transactional
     public void deleteProduct(long id) throws ProductNotFoundException {
-        repository.delete(getById(id));
+        repository.delete(getProductById(id));
     }
 
 }

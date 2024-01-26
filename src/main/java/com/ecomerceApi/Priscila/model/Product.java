@@ -30,7 +30,7 @@ public class Product {
     @Column
     @NonNull
     @Min(0)
-    private int stock;
+    private int stockQuantity;
 
 
 
