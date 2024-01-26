@@ -26,17 +26,10 @@ public class Product {
     @NonNull
     private Double price;
 
+    @Column
+    @NonNull
+    private int stock;
 
-
-
-    /*
-        @Column(name = "stock_quantity")
-        private int stockQuantity;
-
-        @Column(name = "is_stored")
-        private boolean stored;
-
-        */
 
 
 }
