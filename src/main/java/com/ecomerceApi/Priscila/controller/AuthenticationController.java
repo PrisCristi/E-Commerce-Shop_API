@@ -1,7 +1,7 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.requestModels.AuthenticationResponse;
-import com.ecomerceApi.Priscila.requestModels.LoginRequest;
+import com.ecomerceApi.Priscila.request_responseModels.AuthenticationResponse;
+import com.ecomerceApi.Priscila.request_responseModels.LoginRequest;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

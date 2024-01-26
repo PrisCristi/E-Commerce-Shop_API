@@ -1,12 +1,10 @@
 package com.ecomerceApi.Priscila.service;
 
-import com.ecomerceApi.Priscila.requestModels.UserRegistrationRequest;
+import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
 import com.ecomerceApi.Priscila.exception.UserExistsExecption;
-import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -1,7 +1,5 @@
-package com.ecomerceApi.Priscila.requestModels;
+package com.ecomerceApi.Priscila.request_responseModels;
 
-import lombok.Data;
-import lombok.Getter;
 import lombok.Value;
 
 @Value

@@ -2,10 +2,13 @@ package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 // this table was created to store the quantity of each product
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "cart")
 public class ShoppingCart {
