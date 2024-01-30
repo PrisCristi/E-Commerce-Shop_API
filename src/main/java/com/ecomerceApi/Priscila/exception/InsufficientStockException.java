@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.exception;
 
 import com.ecomerceApi.Priscila.model.Product;
@@ -36,3 +37,6 @@ public class InsufficientStockException extends Exception {
     }
 }
 
+
+
+ */

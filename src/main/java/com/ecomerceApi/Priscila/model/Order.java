@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*
 @Data
 @Entity
 @Table(name = "orders")
@@ -26,3 +26,5 @@ public class Order {
 
 
 }
+
+ */

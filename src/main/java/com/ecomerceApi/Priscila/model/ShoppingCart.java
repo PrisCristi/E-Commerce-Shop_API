@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
-
+/*
 // this table was created to store the quantity of each product
 @Getter
 @Setter
@@ -37,3 +37,4 @@ public class ShoppingCart {
     public ShoppingCart(long quantity, Product product, User user) {
     }
 }
+*/

@@ -1,5 +1,5 @@
+/*
 package com.ecomerceApi.Priscila.service;
-
 import com.ecomerceApi.Priscila.exception.InsufficientStockException;
 import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
@@ -20,6 +20,7 @@ import java.util.Optional;
 /* needing to create a method which add products to cart.
  * needing to request products from a list(?) / from a class (?)
  */
+/*
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,4 +51,6 @@ public class ShoppingCartService {
         return new CartResponse("Your cart, " + user.getName(), cartRepository.getCartByCustomer(user));
     }
 }
+
+ */
 

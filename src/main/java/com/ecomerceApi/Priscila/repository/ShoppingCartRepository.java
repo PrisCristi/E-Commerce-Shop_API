@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.repository;
 
 import com.ecomerceApi.Priscila.model.Product;
@@ -16,3 +17,6 @@ public interface ShoppingCartRepository extends JpaRepository <ShoppingCart, Lon
     List<ShoppingCart>getCartByCustomer(User user);
 
 }
+
+
+ */
