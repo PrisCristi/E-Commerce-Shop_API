@@ -16,7 +16,7 @@ public class UserController {
 
     UserService userService;
 
-    @PostMapping(value = "/register") // /user/register
+    @PostMapping(value = "/register")
     public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsExecption {
         userService.register(request);
         return ResponseEntity.ok().build();

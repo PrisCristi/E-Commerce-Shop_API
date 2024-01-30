@@ -55,7 +55,7 @@ public class ProductService {
         return true;
     }
 
-    public Page<Product> getAllProducts(int page, int size) throws ProductNotFoundException {
+    public Page<Product> getAllProductsOnPage(int page, int size) throws ProductNotFoundException {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = repository.findAll(pageable);

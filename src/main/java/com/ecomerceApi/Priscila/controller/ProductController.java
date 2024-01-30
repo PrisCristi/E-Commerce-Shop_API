@@ -5,14 +5,18 @@ import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.service.ProductService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -50,6 +54,18 @@ public class ProductController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ProductExistsException> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
         productService.deleteProduct(id);
-        return ResponseEntity.ok().body(new ProductExistsException("Product sucessfuly deleted"));
+        return ResponseEntity.ok().body(new ProductExistsException("Product successfully deleted"));
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public List<Product> findPaginated(@RequestParam("page") int page,
+                                       @RequestParam("size") int size,
+                                       HttpServletResponse response) throws ProductNotFoundException {
+
+        Page<Product> resultPage = productService.getAllProductsOnPage(page, size);
+        if (page > resultPage.getTotalPages()) {
+            throw new ProductNotFoundException("Page not found");
+        }
+        return resultPage.getContent();
     }
 }
