@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static java.lang.String.*;
 
 @Service
@@ -26,12 +28,15 @@ public class ProductService {
         return repository.save(product);
     }
 
-    public Product getProductById(long id) throws ProductNotFoundException {
-
-        return repository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException(
-                        String.format("Product with id %d is not found", id)));
+// GET Method
+    public Product getProductById(Long productId) throws ProductNotFoundException {
+        Optional<Product> product = repository.findById(productId);
+        if (product.isPresent()){
+            return product.get();
+        }else throw new ProductNotFoundException("No product was not found.");
     }
+
+
 
     @Transactional // This annotation ensures data integrity and consistency - rolling back (rollback when is necessáry)
     public Product updateProduct(long id, Product product) throws ProductNotFoundException {

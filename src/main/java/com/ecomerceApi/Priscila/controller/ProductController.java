@@ -1,56 +1,35 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/products")
+@RequestMapping("products")
 public class ProductController {
 
     private ProductService productService;
-    private ProductRepository productRepository;
 
-
-    @PostMapping("/add") // /product/add       - add new product
-    @PreAuthorize("hasRole('ADMIN')")   // define authorization, who can add products.
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) throws ProductExistsException {
-
-        Product addedNewProduct = productService.addedNewProduct(product);
-        return ResponseEntity.ok().body(addedNewProduct);
+    @GetMapping("/id/{productId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Optional<Product> getProductById( @PathVariable Long productId) throws ProductNotFoundException {
+        return Optional.ofNullable(productService.getProductById(productId));
     }
 
-    @PutMapping("/{id}") // update an existent product
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updatedProduct(@PathVariable("id") long id,
-                                                  @RequestBody Product product) throws ProductNotFoundException {
+    @PostMapping("/add")
+    public Product addNewProduct(@RequestBody Product product) {
+        return productService.addNewProduct(product);
 
-        Product updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok().body(updatedProduct);
-    }
-
-    @GetMapping("/{id}") // get  products by id
-    @PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')") // to see the products anybody
-    public ResponseEntity<Product> getProduct(@PathVariable("id") long id) throws ProductNotFoundException {
-
-        Product foundProduct = productService.getProductById(id);
-        return ResponseEntity.ok().body(foundProduct);
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')") // only admin can delete data
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
-
-        productService.deleteProduct(id);
-        String message = String.format("Product with id %d was deleted", id);
-        return ResponseEntity.ok().body(message);
     }
 
 }
