@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     ProductService productService;
 
-    @PostMapping("/add") // /product/add
+    @PostMapping("/POST")
     public Product addProduct(@RequestBody Product product) {
         return productService.addNewProduct(product);
 

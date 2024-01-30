@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{email}")
-    public ResponseEntity<User> userByEmail(@PathVariable("email") String email) throws UserNotFoundException {
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) throws UserNotFoundException {
         User user = userService.getUserByEmail(email);
         return ResponseEntity.ok(user);
     }
