@@ -20,7 +20,7 @@ public class AuthenticationController {  // authenticate Login access.
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse>login(@RequestBody LoginRequest loginRequest){
         return new ResponseEntity<>(AuthenticationResponse.builder()
-                .accessToken(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))  // create meth in UserService
+                .accessToken(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))
                 .build(),
                 HttpStatus.OK);
     }
