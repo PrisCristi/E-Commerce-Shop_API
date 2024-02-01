@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -16,12 +17,19 @@ public class CartProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "cart_id")
     private long cartId;
+
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "price")
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id" )
     private Product product;
 
-    private int quantity;
+
 
 }
