@@ -30,5 +30,9 @@ public class Cart {
     @NonNull
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Cart(long id) {
+        this.id = id;
+    }
 }
 
