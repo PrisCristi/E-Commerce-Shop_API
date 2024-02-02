@@ -17,8 +17,9 @@ public class CartRequest {
     @NotEmpty
     @NonNull
     @Min(value = 1)
-    private Long quantity;
+    private int quantity;
 
 }
 
  */
+

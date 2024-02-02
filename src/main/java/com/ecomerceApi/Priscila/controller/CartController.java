@@ -1,5 +1,6 @@
 package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.request_responseModels.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class CartController {
     @PostMapping("/mycart/add")
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<CartResponse> addProductToMyCart(@RequestParam("productId") long productId,
-                                                           @RequestParam("quantity") int quantity) {
-        cartService.addProductToCart(productId, quantity);
-        return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
+                                                           @RequestParam("quantity") int quantity) throws ProductNotFoundException {
+        //cartService.addProductToCart(productId, quantity);
+       // return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
     }
 }
