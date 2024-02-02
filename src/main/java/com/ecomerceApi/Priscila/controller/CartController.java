@@ -24,5 +24,6 @@ public class CartController {
                                                            @RequestParam("quantity") int quantity) throws ProductNotFoundException {
         //cartService.addProductToCart(productId, quantity);
        // return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
+    return null;
     }
 }

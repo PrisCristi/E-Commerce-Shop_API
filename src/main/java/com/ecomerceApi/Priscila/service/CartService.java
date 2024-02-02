@@ -43,7 +43,7 @@ public class CartService {
         int quantity = cartItem.getQuantity();
         Product product = productService.getProductById(cartItem.getProduct().getProductId());
 
-        Optional<CartItem> foundCart = cartRepository.getCartByCustomerAndProduct(user, product);
+        Optional<CartItem> foundCart = cartRepository.getCartByUserAndProduct(user, product);
         if (product.getStockQuantity() >= cartItem.getQuantity()) {
             CartItem itemToSave = new CartItem();
             if (foundCart.isPresent()) {
