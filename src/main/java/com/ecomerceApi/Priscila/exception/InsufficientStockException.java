@@ -1,9 +1,8 @@
-/*
+
 package com.ecomerceApi.Priscila.exception;
 
+import com.ecomerceApi.Priscila.model.Cart;
 import com.ecomerceApi.Priscila.model.Product;
-import com.ecomerceApi.Priscila.model.ShoppingCart;
-import com.ecomerceApi.Priscila.service.ShoppingCartService;
 import lombok.Data;
 import lombok.Getter;
 
@@ -26,7 +25,7 @@ public class InsufficientStockException extends Exception {
         super();
     }
 
-    public InsufficientStockException(String message, List<ShoppingCart> unavailableCartItemItems) {
+    public InsufficientStockException(String message, List<Cart> unavailableCartItemItems) {
         super(message);
         unavailableCartItemItems.forEach(cart -> productUnavailable.add(cart.getProduct()));
     }
@@ -36,7 +35,3 @@ public class InsufficientStockException extends Exception {
         productUnavailable.add(product);
     }
 }
-
-
-
- */
