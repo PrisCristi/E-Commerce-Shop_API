@@ -22,8 +22,8 @@ public class CartController {
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<CartResponse> addProductToMyCart(@RequestParam("productId") long productId,
                                                            @RequestParam("quantity") int quantity) throws ProductNotFoundException {
-        //cartService.addProductToCart(productId, quantity);
-       // return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
+        // TODO: cartService.addProductToCart(productId, quantity);
+       //TODO: return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
     return null;
     }
 }
