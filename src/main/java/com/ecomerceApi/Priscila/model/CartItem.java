@@ -24,6 +24,9 @@ public class CartItem {   // better name that reflexes the idea of each idem in 
     @Column(name = "user_id")
     private User user;
 
+    @Column
+    private Long productId;
+
     @Column(name = "quantity")
     private int quantity;
 
