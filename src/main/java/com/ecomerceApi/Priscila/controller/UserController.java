@@ -7,14 +7,17 @@ import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+
+
+
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/v1/users")
 @AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
 
     @PostMapping(value = "/register")
     public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsExecption {
