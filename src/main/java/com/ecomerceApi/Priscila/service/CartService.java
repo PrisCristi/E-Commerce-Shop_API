@@ -93,6 +93,11 @@ public class CartService {
         return new ArrayList<>(cartRepository.getCartsByUser(user));
     }
 
+    public void deleteItems(User user) {
+        List<CartItem> cartItemList = cartRepository.getCartsByUser(user);
+        cartRepository.deleteAll();
+    }
+
 }
 
 
