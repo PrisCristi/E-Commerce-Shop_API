@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.auth;
+package com.ecomerceApi.Priscila.request_responseModels;
 
 import com.ecomerceApi.Priscila.model.Role;
 import lombok.AllArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
+
     private String name;
     private String email;
     private String password;

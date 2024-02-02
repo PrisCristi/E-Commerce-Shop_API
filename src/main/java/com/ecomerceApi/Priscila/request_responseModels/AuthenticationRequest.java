@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.auth;
+package com.ecomerceApi.Priscila.request_responseModels;
 
 import lombok.Getter;
 
