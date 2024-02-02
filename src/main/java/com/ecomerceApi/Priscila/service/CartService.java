@@ -2,12 +2,14 @@ package com.ecomerceApi.Priscila.service;
 
 import com.ecomerceApi.Priscila.exception.InsufficientStockException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
+import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.Cart;
 import com.ecomerceApi.Priscila.model.CartItem;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.CartItemRepository;
 import com.ecomerceApi.Priscila.repository.CartRepository;
+import com.ecomerceApi.Priscila.request_responseModels.CartTotalResponse;
 import com.ecomerceApi.Priscila.security.JwtUserDetails;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +29,7 @@ public class CartService {
     private CartRepository cartRepository;
     private CartItemRepository cartItemRepository;
     private ProductService productService;
-    private Product product;
-
+    private UserService userService;
 
     public Cart getMyCart() {
         JwtUserDetails userDetails = (JwtUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,6 +59,20 @@ public class CartService {
             return cartItemRepository.save(itemToSave);
         }
         return cartItem;
+    }
+
+    public CartTotalResponse getCartTotal(String userEmail) throws UserNotFoundException {
+        User user = userService.getUserByEmail(userEmail);
+        List<CartItem> cartItems = cartRepository.getCartsByUser(user);
+
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItem item : cartItems) {
+            BigDecimal totalOfItems = item.getPrice()
+                    .multiply(BigDecimal.valueOf(item.getQuantity()));
+            total = total.add(totalOfItems);
+        }
+
+        return new CartTotalResponse(cartItems, total);
     }
 }
 

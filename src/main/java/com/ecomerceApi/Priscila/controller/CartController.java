@@ -1,29 +1,37 @@
 package com.ecomerceApi.Priscila.controller;
 
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
+import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.request_responseModels.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
+import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/carts")
 public class CartController {
-    private CartService cartService;
 
+    private  CartService cartService;
+    private UserService userService;
 
-    @PostMapping("/mycart/add")
-    @PreAuthorize("hasAnyRole('USER')")
-    public ResponseEntity<CartResponse> addProductToMyCart(@RequestParam("productId") long productId,
-                                                           @RequestParam("quantity") int quantity) throws ProductNotFoundException {
-        //cartService.addProductToCart(productId, quantity);
-       // return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
-    return null;
+    @GetMapping
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> getCart(@AuthenticationPrincipal UserDetails principal) {
+        try {
+            return ResponseEntity.ok(cartService.getCartAndTotal(userService.getUserByEmail(principal.getUsername())));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                    .body(new ErrorResponse(HttpStatus.NOT_ACCEPTABLE, e.getMessage()));
+        }
     }
+
+
 }
