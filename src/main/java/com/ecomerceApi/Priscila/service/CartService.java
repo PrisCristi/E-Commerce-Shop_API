@@ -89,6 +89,10 @@ public class CartService {
         return cartItem;
     }
 
+    public List<CartItem> getCartByUser(User user) {
+        return new ArrayList<>(cartRepository.getCartsByUser(user));
+    }
+
 }
 
 
