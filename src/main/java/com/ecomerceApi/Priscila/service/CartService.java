@@ -83,17 +83,32 @@ public class CartService {
 
         Optional <CartItem> foundCart = cartRepository.getCartByUserAndProduct(user,product);
         if (foundCart.isEmpty()) {
-            throw new ProductNotFoundException("User ID not founded.");
+            throw new ProductNotFoundException("User ID not founded");
         }
 
         CartItem newItem = foundCart.get();
 
         if (product.getStockQuantity() >= newQuantity) {
             cartItem.setQuantity(newQuantity);
-        } else throw new InsufficientStockException("Insufficient product on strock", product);
+        } else throw new InsufficientStockException("Insufficient product on stock", product);
 
        return cartItemRepository.save(newItem);
     }
+
+    @Transactional
+    public CartTotalResponse deleteProductFromCart(Long productId, User user) throws ProductNotFoundException, UserNotFoundException {
+        Product product = productService.getProductById(Long.valueOf(productId));
+
+        Optional<CartItem> foundCart = cartRepository.getCartByUserAndProduct(user, product);
+        if (foundCart.isPresent()) {
+            CartRepository item = (CartRepository) foundCart.get();
+            cartRepository.delete((Cart) item);
+        } else throw new ProductNotFoundException("Product not found on reference id");
+
+        return getCartTotal(String.valueOf(user));
+    }
+
+
 
 
 }

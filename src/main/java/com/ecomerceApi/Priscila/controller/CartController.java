@@ -5,6 +5,8 @@ import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.CartItem;
 import com.ecomerceApi.Priscila.model.User;
+import com.ecomerceApi.Priscila.repository.CartItemRepository;
+import com.ecomerceApi.Priscila.repository.CartRepository;
 import com.ecomerceApi.Priscila.service.CartService;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
@@ -13,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -60,5 +61,20 @@ public class CartController {
                  InsufficientStockException e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
         }
+    }
+
+    @DeleteMapping("/{product-id}")
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> deleteFromCart(@AuthenticationPrincipal UserDetails principal,
+                                            @RequestBody CartItem cartItem) {
+        try {
+            User user = userService.getUserByEmail(principal.getUsername());
+            return ResponseEntity.ok(cartService.deleteProductFromCart(cartItem.getProduct().getProductId(),user));
+
+        } catch (ProductNotFoundException | UserNotFoundException e) {
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
+
+        }
+
     }
 }
