@@ -26,12 +26,10 @@ public class CartController {
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> getCart(@AuthenticationPrincipal UserDetails principal) {
         try {
-            return ResponseEntity.ok(cartService.getCartAndTotal(userService.getUserByEmail(principal.getUsername())));
+            return ResponseEntity.ok(cartService.getCartTotal(String.valueOf(userService.getUserByEmail(principal.getUsername()))));
         } catch (UserNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-                    .body(new ErrorResponse(HttpStatus.NOT_ACCEPTABLE, e.getMessage()));
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
         }
     }
-
 
 }
