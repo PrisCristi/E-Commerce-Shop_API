@@ -74,6 +74,28 @@ public class CartService {
 
         return new CartTotalResponse(cartItems, total);
     }
+
+    @Transactional
+    public CartItem updateProduct(CartItem cartItem, User user) throws ProductNotFoundException, InsufficientStockException {
+
+        int newQuantity = cartItem.getQuantity();
+        Product product = productService.getProductById(cartItem.getProduct().getProductId());
+
+        Optional <CartItem> foundCart = cartRepository.getCartByUserAndProduct(user,product);
+        if (foundCart.isEmpty()) {
+            throw new ProductNotFoundException("User ID not founded.");
+        }
+
+        CartItem newItem = foundCart.get();
+
+        if (product.getStockQuantity() >= newQuantity) {
+            cartItem.setQuantity(newQuantity);
+        } else throw new InsufficientStockException("Insufficient product on strock", product);
+
+       return cartItemRepository.save(newItem);
+    }
+
+
 }
 
 
