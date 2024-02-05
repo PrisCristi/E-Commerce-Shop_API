@@ -1,7 +1,11 @@
 package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.exception.InsufficientStockException;
+import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
+import com.ecomerceApi.Priscila.model.CartItem;
+import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.request_responseModels.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
 import com.ecomerceApi.Priscila.service.UserService;
@@ -25,11 +29,22 @@ public class CartController {
     @GetMapping
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> getCart(@AuthenticationPrincipal UserDetails principal) {
+
         try {
             return ResponseEntity.ok(cartService.getCartTotal(String.valueOf(userService.getUserByEmail(principal.getUsername()))));
         } catch (UserNotFoundException e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
         }
     }
-
+    @PostMapping
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public ResponseEntity<?> addToCart(@AuthenticationPrincipal UserDetails principal,
+                                       @RequestBody CartItem cartItem){
+        try {
+            User user = userService.getUserByEmail(principal.getUsername());
+            return ResponseEntity.ok(cartService.addProductToCart(cartItem, user));
+        } catch (InsufficientStockException | ProductNotFoundException  e) {
+            return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
 }
