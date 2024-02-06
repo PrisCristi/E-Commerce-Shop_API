@@ -7,6 +7,7 @@ import com.ecomerceApi.Priscila.model.CartItem;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.CartItemRepository;
 import com.ecomerceApi.Priscila.repository.CartRepository;
+import com.ecomerceApi.Priscila.request_responseModels.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
@@ -69,12 +70,23 @@ public class CartController {
                                             @RequestBody CartItem cartItem) {
         try {
             User user = userService.getUserByEmail(principal.getUsername());
-            return ResponseEntity.ok(cartService.deleteProductFromCart(cartItem.getProduct().getProductId(),user));
+            return ResponseEntity.ok(cartService.deleteProductFromCart(cartItem.getProduct().getProductId(), user));
 
         } catch (ProductNotFoundException | UserNotFoundException e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
 
         }
+    }
+
+
+
+    @PostMapping("/mycart/add")
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<CartResponse> addProductToMyCart(@RequestParam("productId") long productId,
+                                                           @RequestParam("quantity") int quantity) throws ProductNotFoundException {
+        // TODO: cartService.addProductToCart(productId, quantity);
+       //TODO: return ResponseEntity.ok().body(new CartResponse("Added product to your cart"));
+    return null;
 
     }
 }
