@@ -33,6 +33,7 @@ public class CartController {
         try {
             return ResponseEntity.ok(cartService.getCartTotal(String.valueOf(
                     userService.getUserByEmail(principal.getUsername()))));
+
         } catch (UserNotFoundException e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
         }

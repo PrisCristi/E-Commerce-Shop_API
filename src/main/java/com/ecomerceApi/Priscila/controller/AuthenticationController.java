@@ -1,7 +1,9 @@
 package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.request_responseModels.AuthenticationResponse;
 import com.ecomerceApi.Priscila.request_responseModels.LoginRequest;
+import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthenticationController {  // authenticate Login access.
 
@@ -25,5 +27,10 @@ public class AuthenticationController {  // authenticate Login access.
                 HttpStatus.OK);
     }
 
+    @PostMapping(value = "/register")
+    public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsExecption {
+        userService.register(request);
+        return ResponseEntity.ok().build();
+    }
 
 }
