@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.request_responseModels;
 
-import com.ecomerceApi.Priscila.model.Role;
+import com.ecomerceApi.Priscila.model.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class RegisterRequest {
     private String name;
     private String email;
     private String password;
-    private Role role;
+    private ERole role;
 
 }
 

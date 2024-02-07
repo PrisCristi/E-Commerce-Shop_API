@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila;
 
-import com.ecomerceApi.Priscila.model.Role;
+import com.ecomerceApi.Priscila.model.ERole;
 import com.ecomerceApi.Priscila.request_responseModels.AuthenticationResponse;
 import com.ecomerceApi.Priscila.request_responseModels.LoginRequest;
 import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
@@ -32,7 +32,7 @@ class PriscilaApplicationTests {
                 "name " + RandomString.make(12),
                 RandomString.make(12),
                 RandomString.make(12),
-                Role.ADMIN);
+                ERole.ADMIN);
 
         ResponseEntity<Void> loginResponse = rest.postForEntity(
                 new URI("http://localhost:" + port + "/user/register"),
@@ -81,7 +81,7 @@ class PriscilaApplicationTests {
                 "name " + RandomString.make(12),
                 RandomString.make(12),
                 RandomString.make(12),
-                Role.CUSTOMER);
+                ERole.CUSTOMER);
 
         ResponseEntity<Void> loginResponse = rest.postForEntity(
                 new URI("http://localhost:" + port + "/user/register"),

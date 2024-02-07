@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.request_responseModels;
 
-import com.ecomerceApi.Priscila.model.Role;
+import com.ecomerceApi.Priscila.model.ERole;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -14,6 +14,6 @@ public class UserRegistrationRequest {
     @NonNull
     private String password;
     @NonNull
-    private Role role;
+    private ERole role;
 
 }

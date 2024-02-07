@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.UserExistsExecption;
+import com.ecomerceApi.Priscila.exception.UserExistsException;
 import com.ecomerceApi.Priscila.request_responseModels.AuthenticationResponse;
 import com.ecomerceApi.Priscila.request_responseModels.LoginRequest;
 import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {  // authenticate Login access.
 
     private UserService userService;
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse>login(@RequestBody LoginRequest loginRequest){
         return new ResponseEntity<>(AuthenticationResponse.builder()
                 .accessToken(userService.login(loginRequest.getUsername(),loginRequest.getPassword()))
@@ -28,7 +28,7 @@ public class AuthenticationController {  // authenticate Login access.
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsExecption {
+    public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest request) throws UserExistsException {
         userService.register(request);
         return ResponseEntity.ok().build();
     }

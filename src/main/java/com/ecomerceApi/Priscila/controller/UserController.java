@@ -1,9 +1,7 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.UserExistsExecption;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.User;
-import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

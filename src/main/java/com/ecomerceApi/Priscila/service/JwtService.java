@@ -22,6 +22,7 @@ public class JwtService { // generate tokens
     private SecretKey jwtKey;
     private JwtParser jwtParser; // read tokens
 
+    /*
     public JwtService(
             @Value("${application.security.jwt.expiration}") long jwtExpiration,
             @Qualifier("jwtKey") SecretKey jwtKey,
@@ -34,6 +35,7 @@ public class JwtService { // generate tokens
     public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims) {
         return generateToken(userDetails, extraClaims, jwtExpiration);
     }
+    */
 
     public String generateToken(UserDetails userDetails, Map<String, Object> extraClaims, long expiration) {
         return Jwts
