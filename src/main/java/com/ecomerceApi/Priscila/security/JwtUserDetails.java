@@ -38,5 +38,4 @@ public class JwtUserDetails implements UserDetails {
         return false;
     }
 
-
 }

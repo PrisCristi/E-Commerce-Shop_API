@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class JwtSecurityFilterChain {
 
-    public JwtAuthenticationFilter authenticationFilter;
+    public AuthTokenFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
