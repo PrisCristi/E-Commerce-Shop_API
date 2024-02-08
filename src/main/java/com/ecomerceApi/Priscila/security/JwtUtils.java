@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static jdk.internal.org.jline.keymap.KeyMap.key;
@@ -19,7 +20,7 @@ import static org.aspectj.bridge.Version.getTime;
 @Component
 public class JwtUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${priscila.app.jwtSecret}")
     private String jwtSecret;
@@ -53,15 +54,14 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(key()).build().parse(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: ", e.getMessage());
+            logger.log(Level.SEVERE,"Invalid JWT token: ", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("Token is expired ", e.getMessage());
+            logger.log(Level.SEVERE, "Token is expired ", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("Token not supported ", e.getMessage());
+            logger.log(Level.SEVERE, "Token not supported ", e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("Token claims empty string ", e.getMessage());
+            logger.log(Level.SEVERE, "Token claims empty string ", e.getMessage());
         }
         return false;
     }
 }
-
