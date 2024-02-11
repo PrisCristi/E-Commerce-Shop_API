@@ -1,6 +1,6 @@
 package com.ecomerceApi.Priscila.security;
 
-import com.ecomerceApi.Priscila.service.UserDetalsImpl;
+import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -13,9 +13,6 @@ import java.security.Key;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static jdk.internal.org.jline.keymap.KeyMap.key;
-import static org.aspectj.bridge.Version.getTime;
 
 @Component
 public class JwtUtils {
@@ -30,7 +27,7 @@ public class JwtUtils {
 
     public String generateJwtToken(Authentication authentication) {
 
-        UserDetalsImpl userPrincipal = (UserDetalsImpl) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))

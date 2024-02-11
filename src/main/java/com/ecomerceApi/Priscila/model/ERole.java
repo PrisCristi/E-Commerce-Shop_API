@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Getter
 @RequiredArgsConstructor
 public enum ERole {
+    ROLE_USER,
     ROLE_COSTUMER,
     ROLE_ADMIN,
 }
