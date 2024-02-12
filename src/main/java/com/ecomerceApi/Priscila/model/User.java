@@ -2,15 +2,11 @@ package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-
 @Table(name = "users",
 uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -41,6 +37,9 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String priscila, String mail) {
     }
 
     public Long getId() {

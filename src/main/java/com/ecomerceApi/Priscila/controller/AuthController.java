@@ -1,19 +1,18 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.MessageResponse;
-import com.ecomerceApi.Priscila.exception.UserExistsException;
+import com.ecomerceApi.Priscila.Payload.response.JwtResponse;
+import com.ecomerceApi.Priscila.Payload.response.MessageResponse;
+import com.ecomerceApi.Priscila.Payload.request.LoginRequest;
+import com.ecomerceApi.Priscila.Payload.request.SignupRequest;
 import com.ecomerceApi.Priscila.model.ERole;
 import com.ecomerceApi.Priscila.model.Role;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.RoleRepository;
 import com.ecomerceApi.Priscila.repository.UserRepository;
-import com.ecomerceApi.Priscila.request_responseModels.*;
 import com.ecomerceApi.Priscila.security.JwtUtils;
 import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

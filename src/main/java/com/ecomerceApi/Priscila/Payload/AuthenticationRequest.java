@@ -1,4 +1,5 @@
-package com.ecomerceApi.Priscila.request_responseModels;
+/*
+package com.ecomerceApi.Priscila.Payload;
 
 import lombok.Getter;
 
@@ -23,3 +24,5 @@ public class AuthenticationRequest {
     public AuthenticationRequest() {
     }
 }
+
+ */

@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.security;
 
 import lombok.Builder;
@@ -39,3 +40,5 @@ public class JwtUserDetails implements UserDetails {
     }
 
 }
+
+ */

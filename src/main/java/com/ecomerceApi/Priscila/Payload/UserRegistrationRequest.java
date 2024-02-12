@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.request_responseModels;
 
 import com.ecomerceApi.Priscila.model.ERole;
@@ -17,3 +18,4 @@ public class UserRegistrationRequest {
     private ERole role;
 
 }
+ */

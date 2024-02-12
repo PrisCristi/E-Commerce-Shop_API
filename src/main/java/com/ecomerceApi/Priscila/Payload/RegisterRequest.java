@@ -1,4 +1,5 @@
-package com.ecomerceApi.Priscila.request_responseModels;
+/*
+package com.ecomerceApi.Priscila.Payload;
 
 import com.ecomerceApi.Priscila.model.ERole;
 import lombok.AllArgsConstructor;
@@ -18,4 +19,6 @@ public class RegisterRequest {
     private ERole role;
 
 }
+
+ */
 

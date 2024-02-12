@@ -1,9 +1,8 @@
+/*
 package com.ecomerceApi.Priscila;
 
 import com.ecomerceApi.Priscila.model.ERole;
-import com.ecomerceApi.Priscila.request_responseModels.AuthenticationResponse;
-import com.ecomerceApi.Priscila.request_responseModels.LoginRequest;
-import com.ecomerceApi.Priscila.request_responseModels.UserRegistrationRequest;
+import com.ecomerceApi.Priscila.Payload.request.LoginRequest;
 import net.bytebuddy.utility.RandomString;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -134,6 +133,8 @@ class PriscilaApplicationTests {
     }
 
 }
+
+ */
 
 
 

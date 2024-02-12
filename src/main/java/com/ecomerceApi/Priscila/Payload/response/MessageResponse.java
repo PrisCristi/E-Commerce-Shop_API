@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.exception;
+package com.ecomerceApi.Priscila.Payload.response;
 
 public class MessageResponse {
     private String message;

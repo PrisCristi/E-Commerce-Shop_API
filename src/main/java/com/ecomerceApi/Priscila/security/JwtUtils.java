@@ -4,20 +4,21 @@ import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 @Component
 public class JwtUtils {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(JwtUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${priscila.app.jwtSecret}")
     private String jwtSecret;
@@ -51,13 +52,13 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(key()).build().parse(authToken);
             return true;
         } catch (MalformedJwtException e) {
-            logger.log(Level.SEVERE,"Invalid JWT token: ", e.getMessage());
+            logger.error("Invalid JWT token: ", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.log(Level.SEVERE, "Token is expired ", e.getMessage());
+            logger.error( "Token is expired ", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.log(Level.SEVERE, "Token not supported ", e.getMessage());
+            logger.error( "Token not supported ", e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.log(Level.SEVERE, "Token claims empty string ", e.getMessage());
+            logger.error("Token claims empty string ", e.getMessage());
         }
         return false;
     }

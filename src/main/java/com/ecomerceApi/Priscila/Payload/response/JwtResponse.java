@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.request_responseModels;
+package com.ecomerceApi.Priscila.Payload.response;
 
 import java.util.List;
 

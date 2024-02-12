@@ -30,7 +30,8 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -42,6 +43,7 @@ public class UserDetailsImpl implements UserDetails {
         List<GrantedAuthority> authorityList = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
+
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
@@ -66,6 +68,11 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
     public boolean isCredentialNonExpired() {
         return true;
     }
@@ -78,7 +85,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o)
-        return true;
+            return true;
 
         if (o == null || getClass() != o.getClass())
             return false;

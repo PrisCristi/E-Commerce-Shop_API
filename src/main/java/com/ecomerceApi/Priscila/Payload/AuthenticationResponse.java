@@ -1,7 +1,7 @@
-package com.ecomerceApi.Priscila.request_responseModels;
+/*
+package com.ecomerceApi.Priscila.Payload;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Value;
 import org.springdoc.core.configuration.oauth2.SpringDocOAuth2Token;
@@ -18,3 +18,4 @@ public class AuthenticationResponse implements SpringDocOAuth2Token {
     String scope;
 
 }
+ */

@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.security;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class JwtSecurityFilterChain {
                         .requestMatchers(HttpMethod.GET, "/ap1/v1/admin **").hasAuthority(ADMIN_READ.name())
                         .anyRequest().hasRole("ADMIN")
 
-                       */
+
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -39,4 +40,5 @@ public class JwtSecurityFilterChain {
                 .build();
     }
 }
+*/
 

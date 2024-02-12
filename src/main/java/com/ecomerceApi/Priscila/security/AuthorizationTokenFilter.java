@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.security;
 
 import com.ecomerceApi.Priscila.service.JwtService;
@@ -50,3 +51,5 @@ public class AuthorizationTokenFilter extends OncePerRequestFilter {  // Declari
         filterChain.doFilter(request, response);
     }
 }
+
+ */

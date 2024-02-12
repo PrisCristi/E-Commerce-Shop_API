@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.controller;
 
 import org.springframework.web.bind.annotation.*;
@@ -21,3 +22,5 @@ public class AdminController {
         return "Delete:: admin controller";
     }
 }
+
+ */
