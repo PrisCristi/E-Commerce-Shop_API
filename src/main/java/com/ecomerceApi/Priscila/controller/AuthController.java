@@ -48,7 +48,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/singin")
+    @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
 
         Authentication authentication = authenticationManager.authenticate(
@@ -71,25 +71,25 @@ public class AuthController {
 
     }
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest singupRequest){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
 
-        if (userRepository.existsByUsername(singupRequest.getUsername())){
+        if (userRepository.existsByUsername(signupRequest.getUsername())){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Username is already used"));
         }
 
-        if (userRepository.existsByEmail(singupRequest.getEmail())){
+        if (userRepository.existsByEmail(signupRequest.getEmail())){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Email is already registered"));
         }
 
         User user = new User(
-                singupRequest.getUsername(),
-                singupRequest.getEmail(), encoder.encode(singupRequest.getPassWord()));
+                signupRequest.getUsername(),
+                signupRequest.getEmail(), encoder.encode(signupRequest.getPassWord()));
 
-        Set<String> stringRoles = singupRequest.getRole();
+        Set<String> stringRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (stringRoles == null) {
