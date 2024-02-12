@@ -26,10 +26,10 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @NonNull
-    @JoinColumn(name = "product_id")
-    private Product product;
+//    @ManyToOne
+//    @NonNull
+//    @JoinColumn(name = "product_id")
+//    private Product product;
 
     public Cart(long id) {
         this.id = id;

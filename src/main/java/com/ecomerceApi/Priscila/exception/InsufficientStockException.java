@@ -27,7 +27,7 @@ public class InsufficientStockException extends Exception {
 
     public InsufficientStockException(String message, List<Cart> unavailableCartItemItems) {
         super(message);
-        unavailableCartItemItems.forEach(cart -> productUnavailable.add(cart.getProduct()));
+//        unavailableCartItemItems.forEach(cart -> productUnavailable.add(cart.getProduct()));
     }
 
     public InsufficientStockException(String message, Product product) {

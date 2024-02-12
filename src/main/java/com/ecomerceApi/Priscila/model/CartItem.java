@@ -33,9 +33,9 @@ public class CartItem {   // better name that reflexes the idea of each idem in 
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "product_id")
+//    private Product product;
 
     public CartItem(User user, Product product, int quantity) {
     }
