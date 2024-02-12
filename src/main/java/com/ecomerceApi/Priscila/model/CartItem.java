@@ -21,8 +21,8 @@ public class CartItem {   // better name that reflexes the idea of each idem in 
     @Column(name = "cart_id")
     private long cartId;
 
-    @Column(name = "user_id")
-    private User user;
+//    @Column(name = "user_id")
+//    private User user;
 
     @Column
     private Long productId;

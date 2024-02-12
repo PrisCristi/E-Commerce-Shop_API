@@ -21,18 +21,18 @@ public class Cart {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne    // many carts associated to one user.
-    @NonNull
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne    // many carts associated to one user.
+//    @NonNull
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 //    @ManyToOne
 //    @NonNull
 //    @JoinColumn(name = "product_id")
 //    private Product product;
 
-    public Cart(long id) {
-        this.id = id;
-    }
+//    public Cart(long id) {
+//        this.id = id;
+//    }
 }
 
