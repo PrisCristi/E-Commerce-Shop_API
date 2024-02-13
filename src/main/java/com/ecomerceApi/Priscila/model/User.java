@@ -39,6 +39,10 @@ public class User {
         this.password = password;
     }
 
+    public User(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public Long getId() {
         return id;
     }

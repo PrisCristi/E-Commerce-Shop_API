@@ -87,10 +87,11 @@ public class AuthController {
 
         User user = new User(
                 signupRequest.getUsername(),
-                signupRequest.getEmail(), encoder.encode(signupRequest.getPassWord()));
+                signupRequest.getEmail(), encoder.encode(signupRequest.getPassword()));
 
         Set<String> stringRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
+        System.out.println(stringRoles);
 
         if (stringRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -99,19 +100,21 @@ public class AuthController {
         } else {
             stringRoles.forEach(role ->{
                 switch (role){
-                    case "admin":
+                    case "ROLE_ADMIN":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(()-> new RuntimeException("Role is not found"));
                         roles.add(adminRole);
 
                         break;
 
-                    case "customer":
+                    case "ROLE_COSTUMER":
                         Role customerRole = roleRepository.findByName(ERole.ROLE_COSTUMER)
                                 .orElseThrow(()-> new RuntimeException("Role not found"));
                         roles.add(customerRole);
                         break;
+
                     default:
+                      List <Role> findRole = roleRepository.findAll();
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(()-> new RuntimeException("Role not found"));
                         roles.add(userRole);

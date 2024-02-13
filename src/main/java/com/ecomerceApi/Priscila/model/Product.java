@@ -20,7 +20,7 @@ public class Product {
     @NonNull
     private String name;
 
-    @Column (name = "descrition")
+    @Column (name = "description")
     private String description;
 
     @Column (name = "price" )
