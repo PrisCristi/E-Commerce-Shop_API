@@ -10,7 +10,7 @@ import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.CartItemRepository;
 import com.ecomerceApi.Priscila.repository.CartRepository;
-import com.ecomerceApi.Priscila.Payload.CartTotalResponse;
+import com.ecomerceApi.Priscila.Payload.response.CartTotalResponse;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.security.JwtUserDetails;
 import jakarta.transaction.Transactional;

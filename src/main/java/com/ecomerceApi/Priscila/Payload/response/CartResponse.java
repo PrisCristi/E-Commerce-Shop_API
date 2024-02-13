@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.Payload;
+package com.ecomerceApi.Priscila.Payload.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

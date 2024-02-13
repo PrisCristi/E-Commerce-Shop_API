@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila.Payload;
+package com.ecomerceApi.Priscila.Payload.response;
 
 import com.ecomerceApi.Priscila.model.CartItem;
 

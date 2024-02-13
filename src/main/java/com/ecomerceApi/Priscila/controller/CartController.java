@@ -6,7 +6,7 @@ import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.CartItem;
 import com.ecomerceApi.Priscila.model.User;
-import com.ecomerceApi.Priscila.Payload.CartResponse;
+import com.ecomerceApi.Priscila.Payload.response.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
