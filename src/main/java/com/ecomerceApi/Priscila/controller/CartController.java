@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.controller;
 
 import com.ecomerceApi.Priscila.exception.InsufficientStockException;
@@ -5,9 +6,7 @@ import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.CartItem;
 import com.ecomerceApi.Priscila.model.User;
-import com.ecomerceApi.Priscila.repository.CartItemRepository;
-import com.ecomerceApi.Priscila.repository.CartRepository;
-import com.ecomerceApi.Priscila.request_responseModels.CartResponse;
+import com.ecomerceApi.Priscila.Payload.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
 import com.ecomerceApi.Priscila.service.UserService;
 import lombok.AllArgsConstructor;
@@ -33,6 +32,7 @@ public class CartController {
         try {
             return ResponseEntity.ok(cartService.getCartTotal(String.valueOf(
                     userService.getUserByEmail(principal.getUsername()))));
+
         } catch (UserNotFoundException e) {
             return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE);
         }
@@ -90,3 +90,5 @@ public class CartController {
 
     }
 }
+
+ */
