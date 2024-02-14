@@ -24,7 +24,7 @@ public class JwtUtils {
     @Value("${priscila.security.jwtExpirationMS}")
     private String jwtExpirationMs;
 
-    @Value("${jwtRefreshExpirationDateInMs}")
+    @Value("${priscila.security.jwtRefreshExpirationDateInMs}")
     private int jwtRefreshExpirationDateInMs;
 
 
