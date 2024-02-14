@@ -19,7 +19,7 @@ public class ProductService {
 
     private ProductRepository repository;
 
-    public Product addProduct(Product product) throws ProductExistsException { // creates new product
+    public Product addProduct(Product product) throws ProductExistsException {
 
         if (repository.existsByNameAndPrice(product.getName(), product.getPrice())) { // checks if product exists
             throw new ProductExistsException(
@@ -36,7 +36,7 @@ public class ProductService {
         } else throw new ProductNotFoundException("No product was not found.");
     }
 
-    @Transactional // This annotation ensures data integrity and consistency - rolling back (rollback when is necessáry)
+    @Transactional
     public Product updateProduct(long id, Product product) throws ProductNotFoundException {
 
         Product productToBeUpdated = getProductById(id);

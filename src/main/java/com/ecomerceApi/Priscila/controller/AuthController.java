@@ -12,6 +12,7 @@ import com.ecomerceApi.Priscila.repository.UserRepository;
 import com.ecomerceApi.Priscila.security.JwtUtils;
 import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +31,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
@@ -71,27 +73,27 @@ public class AuthController {
 
     }
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest){
 
-        if (userRepository.existsByUsername(signupRequest.getUsername())){
+        if (userRepository.existsByUsername(signUpRequest.getUsername())){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Username is already used"));
         }
 
-        if (userRepository.existsByEmail(signupRequest.getEmail())){
+        if (userRepository.existsByEmail(signUpRequest.getEmail())){
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Email is already registered"));
         }
 
         User user = new User(
-                signupRequest.getUsername(),
-                signupRequest.getEmail(), encoder.encode(signupRequest.getPassword()));
+                signUpRequest.getUsername(),
+                signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> stringRoles = signupRequest.getRole();
+        Set<String> stringRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
-        System.out.println(stringRoles);
+        //System.out.println(stringRoles);
 
         if (stringRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)

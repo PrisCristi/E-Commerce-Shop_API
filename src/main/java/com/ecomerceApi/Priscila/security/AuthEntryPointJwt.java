@@ -1,3 +1,4 @@
+
 package com.ecomerceApi.Priscila.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,12 +21,12 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class
     );
 
+ //   method evoked when there is an erro.
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.AuthenticationException authException)
             throws IOException, ServerException {
 
-        logger.error("Unauthorized error: ", authException.getMessage());
-
+        logger.error("Unauthorized error: {}", authException.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
@@ -39,3 +40,4 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         mapper.writeValue(response.getOutputStream(),body);
     }
 }
+
