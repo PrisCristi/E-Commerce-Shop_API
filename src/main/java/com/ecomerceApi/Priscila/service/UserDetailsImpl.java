@@ -58,6 +58,24 @@ public class UserDetailsImpl implements UserDetails {
         return authorities;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+   @Override
+   public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -71,10 +89,6 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
-    }
-
-    public boolean isCredentialNonExpired() {
-        return true;
     }
 
     @Override
