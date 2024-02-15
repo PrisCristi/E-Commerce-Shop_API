@@ -1,5 +1,6 @@
 package com.ecomerceApi.Priscila.security;
 
+import com.ecomerceApi.Priscila.service.JwtUtils;
 import com.ecomerceApi.Priscila.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;

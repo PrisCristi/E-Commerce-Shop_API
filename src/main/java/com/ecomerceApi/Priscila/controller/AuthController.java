@@ -9,7 +9,7 @@ import com.ecomerceApi.Priscila.model.Role;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.RoleRepository;
 import com.ecomerceApi.Priscila.repository.UserRepository;
-import com.ecomerceApi.Priscila.security.JwtUtils;
+import com.ecomerceApi.Priscila.service.JwtUtils;
 import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -37,10 +37,8 @@ public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
 
@@ -53,17 +51,21 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
 
+        // authentic user by user name and password.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+       // generate token and save them.
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
+        // save user details into a String list.
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List <String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+       // return http response and user info and auth.
         return  ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),

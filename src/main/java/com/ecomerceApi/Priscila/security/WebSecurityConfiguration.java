@@ -1,7 +1,5 @@
-package com.ecomerceApi.Priscila.service;
+package com.ecomerceApi.Priscila.security;
 
-import com.ecomerceApi.Priscila.security.AuthEntryPointJwt;
-import com.ecomerceApi.Priscila.security.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

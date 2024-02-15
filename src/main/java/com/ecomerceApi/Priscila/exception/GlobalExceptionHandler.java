@@ -1,4 +1,4 @@
-package com.ecomerceApi.Priscila;
+package com.ecomerceApi.Priscila.exception;
 
 import com.ecomerceApi.Priscila.exception.UserExistsException;
 import org.springframework.http.HttpStatus;
