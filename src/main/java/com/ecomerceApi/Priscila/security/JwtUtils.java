@@ -1,5 +1,6 @@
-package com.ecomerceApi.Priscila.service;
+package com.ecomerceApi.Priscila.security;
 
+import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -22,23 +22,24 @@ public class JwtUtils {
     private String jwtSecret;
     @Value("${priscila.security.jwtExpiration}")
     private String jwtExpiration;
-    @Value("${priscila.security.jwtRefreshExpirationDate}")
-    private String jwtRefreshExpirationDate;
 
+   // @Value("${priscila.security.jwtRefreshExpirationDate}")
+   // private String jwtRefreshExpirationDate;
+
+    public static final long JWT_TOKEN_VALIDITY = 5*60*60;
 
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date((new Date(System.currentTimeMillis())) + jwtExpiration))
-                .signWith(key(), SignatureAlgorithm.ES512)
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY  * 1000))
+                .signWith(key(), SignatureAlgorithm.HS512)
                 .compact();
     }
-
+/*
     public String generateRefreshToken(Map<String,Object> claims, String subject){
         return Jwts.builder()
                 .setClaims(claims)
@@ -47,6 +48,8 @@ public class JwtUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + jwtRefreshExpirationDate))
                 .signWith(SignatureAlgorithm.ES512,jwtSecret).compact();
     }
+
+ */
     private Key key() {
         return Keys.hmacShaKeyFor((Decoders.BASE64.decode(jwtSecret)));
     }

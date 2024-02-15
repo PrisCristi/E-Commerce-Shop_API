@@ -9,7 +9,7 @@ import com.ecomerceApi.Priscila.model.Role;
 import com.ecomerceApi.Priscila.model.User;
 import com.ecomerceApi.Priscila.repository.RoleRepository;
 import com.ecomerceApi.Priscila.repository.UserRepository;
-import com.ecomerceApi.Priscila.service.JwtUtils;
+import com.ecomerceApi.Priscila.security.JwtUtils;
 import com.ecomerceApi.Priscila.service.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

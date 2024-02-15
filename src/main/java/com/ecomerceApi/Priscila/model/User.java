@@ -1,6 +1,7 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class User {
     @NotBlank
     private String username;
     @NotBlank
+    @Email
     private String email;
     @NotBlank
     private String password;
