@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Validated
@@ -41,6 +40,11 @@ public class ProductController {
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public Product addProduct(@Valid @RequestBody Product product) {
         return productRepository.save(product);
+    }
+
+    @GetMapping
+    public List<Product> getAllProducts(){
+        return productRepository.findAll();
     }
 /*
     @PutMapping("/{id}")
