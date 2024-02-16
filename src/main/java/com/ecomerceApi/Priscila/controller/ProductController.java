@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Validated
@@ -20,11 +21,11 @@ public class ProductController {
 
 
     private ProductRepository productRepository;
-
     @Autowired
     public ProductController(ProductRepository productRepository){
         this.productRepository = productRepository;
     }
+
 
 
 /*
@@ -37,7 +38,7 @@ public class ProductController {
 
  */
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Product addProduct(@Valid @RequestBody Product product) {
         return productRepository.save(product);
     }
@@ -46,6 +47,13 @@ public class ProductController {
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
+
+    @GetMapping("/{id}")
+    Optional<Product> getProductById(@PathVariable Long id){
+        return productRepository.findById(id);
+    }
+
+
 /*
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
