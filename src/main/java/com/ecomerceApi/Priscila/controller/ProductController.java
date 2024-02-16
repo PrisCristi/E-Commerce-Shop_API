@@ -1,26 +1,20 @@
+/*
 package com.ecomerceApi.Priscila.controller;
 
 import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
-import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
@@ -32,11 +26,10 @@ public class ProductController {
         Product foundProduct = productService.getProductById(productId);
         return ResponseEntity.ok().body(foundProduct);
     }
-
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping ("add")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> addProduct(
-            @Valid @RequestBody Product product) throws ProductExistsException {
+            @RequestBody Product product) throws ProductExistsException {
 
         Product addedProduct = productService.addProduct(product);
         return ResponseEntity.ok().body(addedProduct);
@@ -69,3 +62,5 @@ public class ProductController {
         return resultPage.getContent();
     }
 }
+
+ */

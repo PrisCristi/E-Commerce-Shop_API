@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    boolean existsByNameAndPrice(String name, double price);
+
+    //   boolean existsByNameAndPrice(String name, double price);
 
     @Override
     Page<Product> findAll(Pageable pageable);

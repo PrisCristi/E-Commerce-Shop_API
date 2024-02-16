@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -20,7 +21,7 @@ public class Product {
     @NonNull
     private String name;
 
-    @Column (name = "descrition")
+    @Column (name = "description")
     private String description;
 
     @Column (name = "price" )

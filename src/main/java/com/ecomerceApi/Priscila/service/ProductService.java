@@ -4,13 +4,12 @@ import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,7 +18,53 @@ public class ProductService {
 
     private ProductRepository repository;
 
-    public Product addProduct(Product product) throws ProductExistsException { // creates new product
+    public Product getProductById(Long productId) throws ProductNotFoundException {
+
+        Optional<Product> foundProduct = repository.findById(productId);
+        if (foundProduct.isPresent()) {
+            return foundProduct.get();
+        } else throw new ProductNotFoundException("No product was not found.");
+
+    }
+
+    public List<Product> getAllProducts() {
+        return repository.findAll();
+    }
+
+    public ResponseEntity<String> addProduct(Product product) throws ProductExistsException {
+        try {
+            repository.save(product);
+            return ResponseEntity.ok("Product added successfully ");
+        } catch (DataAccessException e) {
+            throw new ProductExistsException("Product not added");
+        }
+    }
+
+    public List<Product> getProductsByIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
+    public Product updateProduct(Product product) throws ProductNotFoundException {
+
+        Optional<Product> existingProduct = repository.findById(product.getProductId());
+        if (existingProduct.isPresent()) {
+            return repository.save(product);
+        } else {
+            throw new ProductNotFoundException(" Product not found.");
+        }
+    }
+
+    public void deleteProduct(Long id) {
+        repository.deleteById(id);
+    }
+
+
+
+
+/*
+
+   public Product addProduct(Product product) throws ProductExistsException {
+       Optional<Product> product
 
         if (repository.existsByNameAndPrice(product.getName(), product.getPrice())) { // checks if product exists
             throw new ProductExistsException(
@@ -29,14 +74,8 @@ public class ProductService {
         return repository.save(product);
     }
 
-    public Product getProductById(Long productId) throws ProductNotFoundException {
-        Optional<Product> product = repository.findById(productId);
-        if (product.isPresent()) {
-            return product.get();
-        } else throw new ProductNotFoundException("No product was not found.");
-    }
 
-    @Transactional // This annotation ensures data integrity and consistency - rolling back (rollback when is necessáry)
+    @Transactional
     public Product updateProduct(long id, Product product) throws ProductNotFoundException {
 
         Product productToBeUpdated = getProductById(id);
@@ -66,4 +105,6 @@ public class ProductService {
         }
         return products;
     }
+
+ */
 }
