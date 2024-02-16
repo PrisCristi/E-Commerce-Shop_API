@@ -38,16 +38,9 @@ public class ProductService {
         return productRepository.findAllById(ids);
     }
 
-    public Product updateProduct(Product product) throws ProductNotFoundException {
-
-        Optional<Product> existingProduct = productRepository.findById(product.getProductId());
-        if (existingProduct.isPresent()) {
-            return productRepository.save(product);
-        } else {
-            throw new ProductNotFoundException(" Product not found.");
-        }
-    }
-
+   public Product updateProduct (Product product){
+        return productRepository.save(product);
+   }
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }

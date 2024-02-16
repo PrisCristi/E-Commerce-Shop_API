@@ -1,8 +1,10 @@
 
 package com.ecomerceApi.Priscila.controller;
 
+import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
+import com.ecomerceApi.Priscila.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +23,28 @@ public class ProductController {
 
 
     private ProductRepository productRepository;
+    private ProductService productService;
+
     @Autowired
-    public ProductController(ProductRepository productRepository){
+    public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
 
-
-/*
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', ROLE_CUSTOMER)")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
-        Product foundProduct = productService.getProductById(productId);
-        return ResponseEntity.ok().body(foundProduct);
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
- */
+
+    /*
+        @GetMapping("/{id}")
+        @PreAuthorize("hasAnyRole('ROLE_ADMIN', ROLE_CUSTOMER)")
+        public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
+            Product foundProduct = productService.getProductById(productId);
+            return ResponseEntity.ok().body(foundProduct);
+        }
+
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Product addProduct(@Valid @RequestBody Product product) {
@@ -44,24 +52,31 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    Optional<Product> getProductById(@PathVariable Long id){
+    Optional<Product> getProductById(@PathVariable Long id) {
         return productRepository.findById(id);
     }
 
-
-/*
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
-                                                 @Valid @RequestBody Product product) throws ProductNotFoundException {
-        Product updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok().body(updatedProduct);
+    public Product updateProduct(@PathVariable long id,
+                                 @RequestBody Product updateProduct) throws ProductNotFoundException {
+
+        Product foundProduct = productService.getProductById(id);
+        foundProduct.setName(updateProduct.getName());
+        foundProduct.setDescription(updateProduct.getDescription());
+        foundProduct.setPrice(updateProduct.getPrice());
+        foundProduct.setStockQuantity(updateProduct.getStockQuantity());
+
+        return productService.updateProduct(foundProduct);
+
     }
+}
+
+ /*
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -84,5 +99,5 @@ public class ProductController {
     }
 
      */
-}
+
 
