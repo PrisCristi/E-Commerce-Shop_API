@@ -1,40 +1,48 @@
-/*
+
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.ProductExistsException;
-import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
-import com.ecomerceApi.Priscila.service.ProductService;
-import jakarta.servlet.http.HttpServletResponse;
+import com.ecomerceApi.Priscila.repository.ProductRepository;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
+@NoArgsConstructor
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
-    private ProductService productService;
 
+    private ProductRepository productRepository;
+
+    @Autowired
+    public ProductController(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
+
+
+/*
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', ROLE_CUSTOMER)")
     public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
         Product foundProduct = productService.getProductById(productId);
         return ResponseEntity.ok().body(foundProduct);
     }
-    @PostMapping ("/add")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Product> addProduct(
-            @RequestBody Product product) throws ProductExistsException {
 
-        Product addedProduct = productService.addProduct(product);
-        return ResponseEntity.ok().body(addedProduct);
+ */
+    @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public Product addProduct(@Valid @RequestBody Product product) {
+        return productRepository.save(product);
     }
-
+/*
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
@@ -50,6 +58,7 @@ public class ProductController {
         return ResponseEntity.ok().body(new ProductExistsException("Product successfully deleted"));
     }
 
+    /*
     @GetMapping(params = {"page", "size"})
     public List<Product> findPaginated(@RequestParam("page") int page,
                                        @RequestParam("size") int size,
@@ -61,7 +70,7 @@ public class ProductController {
         }
         return resultPage.getContent();
     }
-}
 
- */
+     */
+}
 

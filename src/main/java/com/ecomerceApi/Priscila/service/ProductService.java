@@ -1,12 +1,10 @@
 package com.ecomerceApi.Priscila.service;
 
-import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.ResponseEntity;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +12,14 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class ProductService {
 
-    private ProductRepository repository;
+    private ProductRepository productRepository;
 
     public Product getProductById(Long productId) throws ProductNotFoundException {
 
-        Optional<Product> foundProduct = repository.findById(productId);
+        Optional<Product> foundProduct = productRepository.findById(productId);
         if (foundProduct.isPresent()) {
             return foundProduct.get();
         } else throw new ProductNotFoundException("No product was not found.");
@@ -28,34 +27,29 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return repository.findAll();
+        return productRepository.findAll();
     }
 
-    public ResponseEntity<String> addProduct(Product product) throws ProductExistsException {
-        try {
-            repository.save(product);
-            return ResponseEntity.ok("Product added successfully ");
-        } catch (DataAccessException e) {
-            throw new ProductExistsException("Product not added");
-        }
+    public Product addProduct(Product product)  {
+           return productRepository.save(product);
     }
 
     public List<Product> getProductsByIds(List<Long> ids) {
-        return repository.findAllById(ids);
+        return productRepository.findAllById(ids);
     }
 
     public Product updateProduct(Product product) throws ProductNotFoundException {
 
-        Optional<Product> existingProduct = repository.findById(product.getProductId());
+        Optional<Product> existingProduct = productRepository.findById(product.getProductId());
         if (existingProduct.isPresent()) {
-            return repository.save(product);
+            return productRepository.save(product);
         } else {
             throw new ProductNotFoundException(" Product not found.");
         }
     }
 
     public void deleteProduct(Long id) {
-        repository.deleteById(id);
+        productRepository.deleteById(id);
     }
 
 
