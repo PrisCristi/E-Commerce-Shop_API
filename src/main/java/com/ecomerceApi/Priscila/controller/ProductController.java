@@ -21,12 +21,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', CUSTOMER)")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', ROLE_CUSTOMER)")
     public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
         Product foundProduct = productService.getProductById(productId);
         return ResponseEntity.ok().body(foundProduct);
     }
-    @PostMapping ("add")
+    @PostMapping ("/add")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> addProduct(
             @RequestBody Product product) throws ProductExistsException {
@@ -64,3 +64,4 @@ public class ProductController {
 }
 
  */
+
