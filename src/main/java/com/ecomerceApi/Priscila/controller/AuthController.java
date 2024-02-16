@@ -1,9 +1,9 @@
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.Payload.response.JwtResponse;
-import com.ecomerceApi.Priscila.Payload.response.MessageResponse;
 import com.ecomerceApi.Priscila.Payload.request.LoginRequest;
 import com.ecomerceApi.Priscila.Payload.request.SignupRequest;
+import com.ecomerceApi.Priscila.Payload.response.JwtResponse;
+import com.ecomerceApi.Priscila.Payload.response.MessageResponse;
 import com.ecomerceApi.Priscila.model.ERole;
 import com.ecomerceApi.Priscila.model.Role;
 import com.ecomerceApi.Priscila.model.User;
@@ -50,32 +50,6 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-
-        // authentic user by user using name and password.
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-       // generate token and save them.
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        // save user details into a String list.
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List <String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-       // return http response and user info and auth.
-        return  ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles)
-        );
-
-    }
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest){
 
@@ -131,5 +105,31 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
+
+        // authentic user by user using name and password.
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+        // generate token and save them.
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        // save user details into a String list.
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List <String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        // return http response and user info and auth.
+        return  ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles)
+        );
     }
 }

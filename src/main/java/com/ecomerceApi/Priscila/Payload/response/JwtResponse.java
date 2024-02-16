@@ -1,5 +1,6 @@
 package com.ecomerceApi.Priscila.Payload.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
@@ -7,7 +8,8 @@ import java.util.List;
 
 public class JwtResponse {
 
-    private String accessToken;
+   @JsonProperty("access_token")
+   private String accessToken;
     private String type = "Bearer";
     @Id
     @GeneratedValue
@@ -26,13 +28,13 @@ public class JwtResponse {
 
     // TODO: 15.02.24 it seems these methods are not been used. Delete them later.
 
-/*
+
     public String getAccessToken() {
-        return token;
+        return accessToken;
     }
 
     public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+        this.accessToken = accessToken;
     }
 
 
@@ -45,7 +47,7 @@ public class JwtResponse {
         this.type = tokenType;
     }
 
- */
+
 
     public Long getId() {
         return id;
@@ -54,7 +56,7 @@ public class JwtResponse {
     public void setId(Long id) {
         this.id = id;
     }
-/*
+
     public String getUsername() {
         return username;
     }
@@ -78,6 +80,5 @@ public class JwtResponse {
         return roles;
     }
 
- */
 
 }
