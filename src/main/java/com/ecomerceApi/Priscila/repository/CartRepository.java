@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
 
-    // TODO: 17.02.24 check the medothes bellow are necessary
+    // TODO: 17.02.24 check the methods bellow are necessary
 
 //    Optional<CartItem> getCartByUserAndProduct(User user, Product product);
 //    List<CartItem> getCartsByUser(User user);
