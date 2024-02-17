@@ -25,7 +25,9 @@ public class CartItem {
     @Column(name = "quantity")
     private int quantity;
 
-   /*
+
+    //TODO: 17.02.24 check this when I work with Order.
+    /*
     @Column(name = "price")
     private BigDecimal price;
     public CartItem(User user, Product product, int quantity) {
