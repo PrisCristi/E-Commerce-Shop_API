@@ -1,49 +1,26 @@
-/*
 package com.ecomerceApi.Priscila.service;
 
-import com.ecomerceApi.Priscila.exception.InsufficientStockException;
-import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
-import com.ecomerceApi.Priscila.exception.UserNotFoundException;
 import com.ecomerceApi.Priscila.model.Cart;
-import com.ecomerceApi.Priscila.model.CartItem;
-import com.ecomerceApi.Priscila.model.Product;
-import com.ecomerceApi.Priscila.model.User;
-import com.ecomerceApi.Priscila.repository.CartItemRepository;
 import com.ecomerceApi.Priscila.repository.CartRepository;
-import com.ecomerceApi.Priscila.Payload.response.CartTotalResponse;
-import com.ecomerceApi.Priscila.repository.ProductRepository;
-import com.ecomerceApi.Priscila.security.JwtUserDetails;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
 public class CartService {
 
-    private CartRepository cartRepository;
-    private CartItemRepository cartItemRepository;
-    private ProductService productService;
-    private UserService userService;
-    private ProductRepository productRepository;
+    private final CartRepository cartRepository;
 
-    public Cart getMyCart() {
-        JwtUserDetails userDetails = (JwtUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (Cart) cartRepository.getCartsByUser((User) userDetails.getAuthorities());
+    @Autowired
+    public CartService(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
 
-    public Cart createCart(Long userId) {
-        return cartRepository.save(new Cart(userId));
+    public Cart createCart(Cart cart) {
+        return cartRepository.save(cart);
     }
 
+
+/*
     @Transactional
     public CartItem addProductToCart(CartItem cartItem, User user) throws InsufficientStockException, ProductNotFoundException {
 
@@ -154,4 +131,4 @@ public class CartService {
 
  */
 
-
+}

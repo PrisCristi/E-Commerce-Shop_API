@@ -1,30 +1,25 @@
-/*
+
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.InsufficientStockException;
-import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
-import com.ecomerceApi.Priscila.exception.UserNotFoundException;
-import com.ecomerceApi.Priscila.model.CartItem;
-import com.ecomerceApi.Priscila.model.User;
-import com.ecomerceApi.Priscila.Payload.response.CartResponse;
 import com.ecomerceApi.Priscila.service.CartService;
-import com.ecomerceApi.Priscila.service.UserService;
+import com.ecomerceApi.Priscila.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/carts")
 public class CartController {
 
-    private CartService cartService;
-    private UserService userService;
+    // TODO: 17.02.24 Create create cart, addToCart, updateItemInTheCart, deleteItemInThe Cart methods
 
+    private final CartService cartService;
+    private final UserDetailsServiceImpl userService;
+
+
+
+    /*
     @GetMapping
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> getCart(@AuthenticationPrincipal UserDetails principal) {
@@ -79,7 +74,7 @@ public class CartController {
     }
 
 
-
+/*
     @PostMapping("/mycart/add")
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<CartResponse> addProductToMyCart(@RequestParam("productId") long productId,
@@ -90,5 +85,6 @@ public class CartController {
 
     }
 }
-
  */
+    
+}
