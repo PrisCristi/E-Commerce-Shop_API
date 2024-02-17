@@ -1,9 +1,12 @@
 package com.ecomerceApi.Priscila.service;
 
+import com.ecomerceApi.Priscila.exception.CartNotFoundException;
 import com.ecomerceApi.Priscila.model.Cart;
 import com.ecomerceApi.Priscila.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+// TODO: 17.02.24 Create create cart, getCartById, deleteCart in CartServices
 
 @Service
 public class CartService {
@@ -18,6 +21,20 @@ public class CartService {
     public Cart createCart(Cart cart) {
         return cartRepository.save(cart);
     }
+
+    public Cart getCartById(Long id) throws CartNotFoundException {
+
+        Cart existingCart = cartRepository.findById(id).orElseThrow(
+                () -> new CartNotFoundException("Cart not found with ID : " + id));
+
+        return (Cart) cartRepository;
+
+    }
+
+    public void deleteCart(Long id) {
+        cartRepository.deleteById(id);
+    }
+
 
 
 /*
