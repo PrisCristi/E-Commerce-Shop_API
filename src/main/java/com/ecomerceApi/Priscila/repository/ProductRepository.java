@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Optional<Product> findById(Long id);
-    Optional<Product> updatedProduct(Long id);
+   // Optional<Product> updatedProduct(Long id);
 
     //   boolean existsByNameAndPrice(String name, double price);
 

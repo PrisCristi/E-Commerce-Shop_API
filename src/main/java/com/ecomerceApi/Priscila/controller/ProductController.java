@@ -22,9 +22,9 @@ import java.util.Optional;
 public class ProductController {
 
 
-    private ProductRepository productRepository;
-    private ProductService productService;
 
+    private ProductService productService;
+    private ProductRepository productRepository;
     @Autowired
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -63,7 +63,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable long id,
-                                 @RequestBody Product updateProduct) throws ProductNotFoundException {
+                                 @Valid @RequestBody Product updateProduct) throws ProductNotFoundException {
 
         Product foundProduct = productService.getProductById(id);
         foundProduct.setName(updateProduct.getName());
@@ -74,6 +74,7 @@ public class ProductController {
         return productService.updateProduct(foundProduct);
 
     }
+
 }
 
  /*
