@@ -1,13 +1,7 @@
 package com.ecomerceApi.Priscila.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.lang.NonNull;
-
-import java.util.List;
+import lombok.*;
 
 @Getter
 @Setter
@@ -18,13 +12,17 @@ import java.util.List;
 public class Cart {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//    @ManyToOne    // many carts associated to one user.
-//    @NonNull
-//    @JoinColumn(name = "user_id")
-//    private User user;
+
+    @OneToOne   // ONE cart associated to ONE user.
+    @NonNull
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+
 
 //    @ManyToOne
 //    @NonNull
