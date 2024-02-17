@@ -1,62 +1,73 @@
+
 package com.ecomerceApi.Priscila.controller;
 
-import com.ecomerceApi.Priscila.exception.ProductExistsException;
 import com.ecomerceApi.Priscila.exception.ProductNotFoundException;
 import com.ecomerceApi.Priscila.model.Product;
 import com.ecomerceApi.Priscila.repository.ProductRepository;
 import com.ecomerceApi.Priscila.service.ProductService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.ErrorResponse;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
+@Validated
 @RequestMapping("/api/v1/products")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
+    private final ProductRepository productRepository;
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', CUSTOMER)")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId) throws ProductNotFoundException {
-        Product foundProduct = productService.getProductById(productId);
-        return ResponseEntity.ok().body(foundProduct);
+    public ProductController(ProductService productService, ProductRepository productRepository) {
+        this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> addProduct(
-            @Valid @RequestBody Product product) throws ProductExistsException {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Product addProduct(@Valid @RequestBody Product product) {
+        return productRepository.save(product);
+    }
 
-        Product addedProduct = productService.addProduct(product);
-        return ResponseEntity.ok().body(addedProduct);
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    Optional<Product> getProductById(@PathVariable Long id) {
+        return productRepository.findById(id);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Product> updateProduct(@PathVariable("id") long id,
-                                                 @Valid @RequestBody Product product) throws ProductNotFoundException {
-        Product updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok().body(updatedProduct);
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public Product updateProduct(@PathVariable long id,
+                                 @Valid @RequestBody Product updateProduct) throws ProductNotFoundException {
+
+        Product foundProduct = productService.getProductById(id);
+        foundProduct.setName(updateProduct.getName());
+        foundProduct.setDescription(updateProduct.getDescription());
+        foundProduct.setPrice(updateProduct.getPrice());
+        foundProduct.setStockQuantity(updateProduct.getStockQuantity());
+
+        return productService.updateProduct(foundProduct);
+
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ProductExistsException> deleteProduct(@PathVariable("id") long id) throws ProductNotFoundException {
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.ok().body(new ProductExistsException("Product successfully deleted"));
     }
 
+}
+// TODO: 17.02.24 Will implement pagination later.
+    /*
     @GetMapping(params = {"page", "size"})
     public List<Product> findPaginated(@RequestParam("page") int page,
                                        @RequestParam("size") int size,
@@ -68,4 +79,7 @@ public class ProductController {
         }
         return resultPage.getContent();
     }
-}
+
+     */
+
+

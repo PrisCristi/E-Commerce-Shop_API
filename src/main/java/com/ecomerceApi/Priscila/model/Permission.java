@@ -1,3 +1,4 @@
+/*
 package com.ecomerceApi.Priscila.model;
 
 import lombok.Getter;
@@ -20,3 +21,5 @@ public enum Permission {
     }
 
 }
+
+ */
