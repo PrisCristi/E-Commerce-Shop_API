@@ -12,15 +12,18 @@ import org.springframework.stereotype.Service;
 public class CartService {
 
     private final CartRepository cartRepository;
+    private final UserDetailsServiceImpl userService;
 
     @Autowired
-    public CartService(CartRepository cartRepository) {
+    public CartService(CartRepository cartRepository, UserDetailsServiceImpl userService) {
         this.cartRepository = cartRepository;
+        this.userService = userService;
     }
 
     public Cart createCart(Cart cart) {
         return cartRepository.save(cart);
     }
+
 
     public Cart getCartById(Long id) throws CartNotFoundException {
 

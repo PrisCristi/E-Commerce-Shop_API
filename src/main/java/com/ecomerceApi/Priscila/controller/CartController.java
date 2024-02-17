@@ -4,37 +4,27 @@ package com.ecomerceApi.Priscila.controller;
 import com.ecomerceApi.Priscila.exception.CartNotFoundException;
 import com.ecomerceApi.Priscila.model.Cart;
 import com.ecomerceApi.Priscila.service.CartService;
-import com.ecomerceApi.Priscila.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/carts")
 public class CartController {
 
-    // TODO: 17.02.24 Create create cart, addToCart, updateItemInTheCart, deleteItemInThe Cart methods
+    // TODO: 17.02.24 Create create cart and deleteCart
+
 
     private final CartService cartService;
-    private final UserDetailsServiceImpl userDetailsService;
-
-    /*
-    @PostMapping("/add")
-    public Cart addCart(@RequestBody @Valid CartRepository repository) {
-        User existingUser = cartService.getCartBy;
-        Cart newCart = new Cart();
-        newCart.setUser(existingUser);
-        Cart cartFromDb = cartService.createCart(newCart);
-        return new CartDto(cartFromDb.getId(), cartDto.getUserId());
-    }
-*/
 
     @GetMapping("/{id}")
-    public Cart getCartById(@PathVariable Long id) throws CartNotFoundException, CartNotFoundException {
+    public Cart getCartById(@PathVariable Long id) throws CartNotFoundException {
         return cartService.getCartById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCart(@PathVariable Long id) {
+        cartService.deleteCart(id);
     }
 
 
@@ -105,5 +95,5 @@ public class CartController {
     }
 }
  */
-    
+
 }
